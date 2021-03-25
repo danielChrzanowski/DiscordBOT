@@ -1,29 +1,41 @@
-var Scrapper = require('images-scraper');
-
-const google = new Scrapper({
-    puppeteer: {
-        headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
-    }
-});
+const cheerio = require('cheerio');
+const request = require('request');
 
 module.exports = {
     name: 'image',
     description: 'Prints image from Google',
 
     async execute(client, message, args) {
-        const image_query = args.join(' ');
-        if (!image_query) return message.reply('podaj nazwę obrazka');
+        var parameter = "";
 
-        const rand = getRandomInt(0, 200);
-        const image_results = await google.scrape(image_query, 200);
-        message.channel.send(image_results[rand].url);
+        args.forEach(element => {
+            parameter += element + " ";
+        });
+
+        var options = {
+            url: "http://results.dogpile.com/serp?qc=images&q=" + parameter,
+            method: "GET",
+            headers: {
+                "Accept": "text/html",
+                "User-Agent": "Chrome"
+            }
+        };
+
+        request(options, function (error, response, responseBody) {
+            if (error) {
+                return;
+            }
+            $ = cheerio.load(responseBody);
+
+            var links = $(".image a.link");
+            var urls = new Array(links.length).fill(0).map((v, i) => links.eq(i).attr("href"));
+
+            if (!urls.length) {
+                return;
+            }
+
+            message.channel.send(urls[Math.floor(Math.random() * urls.length)]);
+        });
     }
 
-}
-
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
 }
