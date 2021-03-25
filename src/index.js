@@ -11,7 +11,7 @@ client.events = new Discord.Collection();
 
 client.on('ready', () => {
     console.log('Dzieci Neo is online!');
-    client.user.setActivity('How to Destiny2', { type: 'WATCHING' });
+    client.user.setActivity('How to Destiny 2', { type: 'WATCHING' });
 });
 
 client.login(process.env.DISCORD_TOKEN);

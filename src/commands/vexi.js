@@ -1,6 +1,6 @@
 module.exports = {
-    name: 'nijjan',
-    description: 'Prints the 1st truth',
+    name: 'vexi',
+    description: 'Prints the 2nd truth',
 
     execute(client, message, args) {
         const reactions = [
@@ -18,7 +18,7 @@ module.exports = {
             message.react(element);
         });
 
-        message.channel.send('Nijjan to TOP 1 DPS EU');
+        message.channel.send('Vexi to TOP 1 HEAL TRAITOR EU');
     }
 
 }
