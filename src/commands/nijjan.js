@@ -2,7 +2,7 @@ module.exports = {
     name: 'nijjan',
     description: 'Prints the 1st truth',
 
-    execute(client, message, args) {
+    async execute(client, message, args) {
         const reactions = [
             '<:shinoSmirk:474697613027966998>',
             '<:z18:470737705937141772>',
@@ -14,11 +14,11 @@ module.exports = {
             '<:catJuice:790433770092101672>'
         ];
 
-        reactions.forEach(element => {
-            message.react(element);
-        });
+        const msg = await message.channel.send('Nijjan to TOP 1 DPS EU');
 
-        message.channel.send('Nijjan to TOP 1 DPS EU');
+        reactions.forEach(element => {
+            msg.react(element);
+        });
     }
 
 }
