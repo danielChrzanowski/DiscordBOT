@@ -5,7 +5,7 @@ module.exports = {
     execute(client, message, args) {
         message.channel.send(`KOMENDY:
         -nijjan -> prawda objawiona
-        -play, -stop -> muzyka
+        -play, -skip, -stop -> muzyka
         -image <nazwa> -> obrazek z neta
         -clear <ile> -> kasowanie wiadomości (max: 20 wiadomości, 14 dni wstecz)
         -sleep [użytkownicy] -> kick z głosowego

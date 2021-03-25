@@ -2,7 +2,8 @@ var Scrapper = require('images-scraper');
 
 const google = new Scrapper({
     puppeteer: {
-        headless: true
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
     }
 });
 
