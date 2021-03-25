@@ -11,14 +11,14 @@ module.exports = {
 
     async execute(client, message, args, cmd, Discord) {
         const voice_channel = message.member.voice.channel;
-        if (!voice_channel) return message.reply('Musisz być na kanale głosowym, żeby włączyć/wyłączyć muzykę');
-        if (!message.member.hasPermission("CONNECT")) return message.reply('Nie masz wystarczających uprawnień');
-        if (!message.member.hasPermission("SPEAK")) return message.reply('Nie masz wystarczających uprawnień');
+        if (!voice_channel) return message.reply('musisz być na kanale głosowym, żeby włączyć/wyłączyć muzykę');
+        if (!message.member.hasPermission("CONNECT")) return message.reply('nie masz wystarczających uprawnień');
+        if (!message.member.hasPermission("SPEAK")) return message.reply('nie masz wystarczających uprawnień');
 
         const server_queue = queue.get(message.guild.id);
 
         if (cmd === 'play') {
-            if (!args.length) return message.reply('Musisz podać nazwę lub link do YT');
+            if (!args.length) return message.reply('musisz podać nazwę lub link do YT');
             let song = {};
 
             if (ytdl.validateURL(args[0])) {
@@ -36,7 +36,7 @@ module.exports = {
                     song = { title: video.title, url: video.url }
 
                 } else {
-                    message.reply('Błąd przy przeszukiwaniu YT D:');
+                    message.reply('błąd przy przeszukiwaniu YT D:');
                 }
             }
 
@@ -58,7 +58,7 @@ module.exports = {
 
                 } catch (err) {
                     queue.delete(message.guild.id);
-                    message.reply('Wystąpił problem z połączeniem');
+                    message.reply('wystąpił problem z połączeniem');
                     throw err;
                 }
 
@@ -93,7 +93,7 @@ const video_player = async (guild, song) => {
 }
 
 const skip_song = (message, server_queue) => {
-    if (!message.member.voice.channel) return message.reply('Musisz być na kanale głosowym, żeby skipować muzykę');
+    if (!message.member.voice.channel) return message.reply('musisz być na kanale głosowym, żeby skipować muzykę');
     if (!server_queue) {
         return message.reply(`Kolejka jest pusta`);
     }
@@ -101,7 +101,7 @@ const skip_song = (message, server_queue) => {
 }
 
 const stop_song = (message, server_queue) => {
-    if (!message.member.voice.channel) return message.reply('Musisz być na kanale głosowym, żeby stopować muzykę');
+    if (!message.member.voice.channel) return message.reply('musisz być na kanale głosowym, żeby stopować muzykę');
     server_queue.songs = [];
     server_queue.connection.dispatcher.end();
 }

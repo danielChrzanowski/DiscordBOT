@@ -12,11 +12,17 @@ module.exports = {
 
     async execute(client, message, args) {
         const image_query = args.join(' ');
-        if (!image_query) return message.reply('Podaj nazwę obrazka');
+        if (!image_query) return message.reply('podaj nazwę obrazka');
 
-        const rand = (Math.random() * 200 + Math.random()).toFixed(0);
+        const rand = getRandomInt(0, 200);
         const image_results = await google.scrape(image_query, 200);
         message.channel.send(image_results[rand].url);
     }
 
+}
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
 }
