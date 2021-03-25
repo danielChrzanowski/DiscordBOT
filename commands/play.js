@@ -5,16 +5,15 @@ const queue = new Map();
 
 module.exports = {
     name: 'play',
+    description: 'Plays music',
     aliases: ['skip', 'stop'],
     cooldown: 0,
 
     async execute(client, message, args, cmd, Discord) {
         const voice_channel = message.member.voice.channel;
         if (!voice_channel) return message.reply('Musisz być na kanale głosowym, żeby włączyć/wyłączyć muzykę');
-
-        const permissions = voice_channel.permissionsFor(message.client.user);
-        if (!permissions.has('CONNECT')) return message.reply('Nie masz wystarczających uprawnień');
-        if (!permissions.has('SPEAK')) return message.reply('Nie masz wystarczających uprawnień');
+        if (!message.member.hasPermission("CONNECT")) return message.reply('Nie masz wystarczających uprawnień');
+        if (!message.member.hasPermission("SPEAK")) return message.reply('Nie masz wystarczających uprawnień');
 
         const server_queue = queue.get(message.guild.id);
 

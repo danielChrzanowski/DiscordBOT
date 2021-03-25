@@ -1,13 +1,10 @@
 module.exports = {
-    name: 'kick',
+    name: 'sleep',
+    description: 'Disconnects voice channel users',
 
     execute(client, message, args, Discord) {
         if (!args.length) return message.reply('Musisz podać użytkowników do uspania');
-
-        const voice_channel = message.member.voice.channel;
-        if (!voice_channel) return message.reply('Musisz być na kanale głosowym, żeby kickować');
-        const permissions = voice_channel.permissionsFor(message.client.user);
-        if (!permissions.has('DISCONNECT')) return message.reply('Nie masz wystarczających uprawnień');
+        if (!message.member.hasPermission("MOVE_MEMBERS")) return message.reply('Nie masz wystarczających uprawnień');
 
         const targets = message.mentions.users;
 
@@ -18,13 +15,12 @@ module.exports = {
 
                 } else {
                     memberTarget = message.guild.members.cache.get(user.id);
-                    message.channel.send(`${user} do spania dziecko drogie :sleeping:`);
+                    message.channel.send(`${user}, do spania dziecko drogie :sleeping:`);
                     memberTarget.voice.setChannel(null);
                 }
             });
 
-        } else {
-            message.channel.send(`Nie możesz rozłączyć tego użytkownika`);
         }
     }
+
 }

@@ -8,6 +8,7 @@ const google = new Scrapper({
 
 module.exports = {
     name: 'image',
+    description: 'Prints image from Google',
 
     async execute(client, message, args) {
         const image_query = args.join(' ');
