@@ -64,7 +64,7 @@ module.exports = {
 
             } else {
                 server_queue.songs.push(song);
-                return message.channel.send(`-------------------------------\nDodano do kolejki: **${song.title}**\n${song.url}`);
+                return message.channel.send(`-------------------------------\nDodano do kolejki: **${song.title}**`);
             }
         }
         else if (cmd === 'skip') skip_song(message, server_queue);
