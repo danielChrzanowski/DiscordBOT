@@ -89,7 +89,7 @@ const video_player = async (guild, song) => {
             video_player(guild, song_queue.songs[0]);
         });
 
-    await song_queue.text_channel.send(`-------------------------------\nTeraz grane: ***${song.title}***`)
+    await song_queue.text_channel.send(`-------------------------------\nTeraz grane: ${song.url}`)
 }
 
 const skip_song = (message, server_queue) => {
