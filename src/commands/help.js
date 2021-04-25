@@ -12,7 +12,8 @@ module.exports = {
         -sleep [użytkownicy] -> kick z głosowego
         -weapons -> meta broni Destiny 2
         -server -> status serwera Destiny 2
-        -druzynaOgniowa -> woła do gry REEE`);
+        -druzynaOgniowa -> woła do gry REEE
+        -fun -> fun :)`);
     }
 
 }
