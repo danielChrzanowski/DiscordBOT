@@ -13,7 +13,7 @@ module.exports = {
             '<:bnsPlease:468750180779294751>',
             '<:catJuice:790433770092101672>'
         ];
-        console.log(message.guild.emojis.cache.find(emoji => emoji.name === 'uganda'));
+
         const msg = await message.channel.send('Nijjan to TOP 1 DPS EU');
 
         reactions.forEach(element => {

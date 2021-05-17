@@ -13,7 +13,8 @@ module.exports = {
         -weapons -> meta broni Destiny 2
         -server -> status serwera Destiny 2
         -druzynaOgniowa -> woła do gry REEE
-        -fun -> fun :)`);
+        -fun -> fun :)
+        -poetaMoraw -> poezja`);
     }
 
 }
