@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'poetaMoraw',
+    name: 'vateusz',
     description: 'Prints the poetry',
 
     async execute(client, message, args) {
