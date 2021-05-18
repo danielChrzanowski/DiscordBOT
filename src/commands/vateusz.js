@@ -2,7 +2,7 @@ module.exports = {
     name: 'vateusz',
     description: 'Prints the poetry',
 
-    async execute(client, message, args) {
+    async execute(client, message) {
         const reactions = [
             '<:disaSmile:812821278984765490>',
         ];

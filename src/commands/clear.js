@@ -11,8 +11,6 @@ module.exports = {
 
         await message.channel.messages.fetch({ limit: args[0] }).then(messages => {
             message.channel.bulkDelete(messages);
-            const reactionEmoji = message.guild.emojis.cache.find(emoji => emoji.name === 'pupperSleep');
-            console.log(reactionEmoji);
         });
     }
 

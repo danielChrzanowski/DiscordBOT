@@ -2,7 +2,7 @@ module.exports = {
     name: 'vexi',
     description: 'Prints the 2nd truth',
 
-    async execute(client, message, args) {
+    async execute(client, message) {
         const reactions = [
             '<:shinoSmirk:474697613027966998>',
             '<:z18:470737705937141772>',
