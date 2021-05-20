@@ -16,7 +16,8 @@ module.exports = {
         -fun -> fun :)
         -vateusz -> poezja
         -neko [argument] -> losowe neko z argumentem
-        -nekoHelp -> argumenty do neko`);
+        -nekoHelp -> argumenty do neko
+        -poland -> Gdyby Polska miała trailer`);
     }
 
 }
