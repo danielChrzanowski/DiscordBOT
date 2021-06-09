@@ -3,7 +3,7 @@ module.exports = {
     description: 'Prints parameters for neko',
 
     execute(client, message) {
-        message.channel.send("PARAMETRY NEKO: kitsune, hug, pat, waifu, cry, kiss, slap, smug, punch, nekolewd");
+        message.channel.send("PARAMETRY NEKO: <puste>, kitsune, hug, pat, waifu, cry, kiss, slap, smug, punch, nekolewd");
     }
 
 }
