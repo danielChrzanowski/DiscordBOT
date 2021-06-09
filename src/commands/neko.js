@@ -5,10 +5,7 @@ module.exports = {
     description: 'Prints neko with parameter',
 
     async execute(client, message, args) {
-        if (!args.length) return message.reply('musisz podać agrument');
-
-        tags = ['4k', 'ass', 'blowjob', 'bj', 'boobs', 'cum', 'feet',
-            'hentai', 'wallpapers', 'spank', 'gasm', 'lesbian', 'lewd', 'pussy'];
+        tags = ['nekolewd'];
 
         for (i of tags) {
             if (i == args[0]) {
@@ -17,10 +14,16 @@ module.exports = {
             }
         }
 
-        const { image } = await fetch('http://api.nekos.fun:8080/api/' + args[0])
-            .then(response => response.json());
+        if (!args.length) {
+            const { url } = await fetch('https://neko-love.xyz/api/v1/neko')
+                .then(response => response.json());
+            message.channel.send(url);
+        } else {
+            const { url } = await fetch('https://neko-love.xyz/api/v1/' + args[0])
+                .then(response => response.json());
+            message.channel.send(url);
+        }
 
-        message.channel.send(image);
     }
 
 }

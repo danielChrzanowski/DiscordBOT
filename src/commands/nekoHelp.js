@@ -1,9 +1,9 @@
 module.exports = {
     name: 'nekohelp',
-    description: 'Prints arguments for neko',
+    description: 'Prints parameters for neko',
 
     execute(client, message) {
-        message.channel.send("https://www.nekos.fun/apidoc.html",{ files: ["./src/assets/nekoCommands.png"] });
+        message.channel.send("PARAMETRY NEKO: kitsune, hug, pat, waifu, cry, kiss, slap, smug, punch, nekolewd");
     }
 
 }
