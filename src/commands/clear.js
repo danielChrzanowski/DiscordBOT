@@ -10,8 +10,10 @@ module.exports = {
         if (args[0] > 100) return message.reply("chill mon, maksymalnie możesz usunąć 100 wiadomości na raz");
         if (args[0] < 1) return message.reply("nie da się skasować mniej niż 1 wiadomości :)");
 
-        await message.channel.messages.fetch({ limit: args[0] }).then(messages => {
-            message.channel.bulkDelete(messages + 1);
+        var deleteSize = parseInt(args[0]) + 1;
+
+        await message.channel.messages.fetch({ limit: deleteSize }).then(messages => {
+            message.channel.bulkDelete(messages);
         });
     }
 
