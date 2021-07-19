@@ -13,7 +13,7 @@ module.exports = {
         */
 
         fetch('https://api.thecatapi.com/v1/images/search?format=json', {
-            headers: { 'x-api-key': process.env.DISCORD_TOKEN, }
+            headers: { 'x-api-key': process.env.THE_CAT_API_KEY }
         }).then(function (response) { return response.json(); })
             .then(data => { message.channel.send(data[0].url); });
     }
