@@ -16,7 +16,8 @@ module.exports = {
         -fun -> fun :)
         -vateusz -> poezja
         -neko [argument] -> losowe neko z parametrem
-        -nekoHelp -> parametry do neko`);
+        -nekoHelp -> parametry do neko
+        -ps2 -> populacja PS2 - Miller`);
     }
 
 }
