@@ -31,8 +31,14 @@ module.exports = {
                 if (date_ob.getHours() + 2 === 24) {
                     hours = '00';
                 } else {
-                    hours = ((date_ob.getHours() + 2) < 10 ? '0' : '') + (date_ob.getHours() + 2);
+                    if (date_ob.getHours() + 2 === 25) {
+                        hours = '01';
+                    } else {
+                        hours = ((date_ob.getHours() + 2) < 10 ? '0' : '') + (date_ob.getHours() + 2);
+
+                    }
                 }
+
 
                 var minutes = (date_ob.getMinutes() < 10 ? '0' : '') + date_ob.getMinutes();
                 var day = (date_ob.getDate() < 10 ? '0' : '') + date_ob.getDate();
