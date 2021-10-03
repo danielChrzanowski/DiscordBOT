@@ -30,6 +30,8 @@ module.exports = {
                 let month = ((date_ob.getMonth() + 1) < 10 ? '0' : '') + (date_ob.getMonth() + 1);
                 let year = date_ob.getFullYear();
 
+                if (hours == 24) hours == 0;
+
                 return currentTime = hours + ":" + minutes + " | " + day + "-" + month + "-" + year;
             }
         }
