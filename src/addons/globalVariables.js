@@ -1,7 +1,7 @@
 module.exports = {
     description: 'Stores global reactions',
 
-    execute(variable) {
+    async execute(variable) {
         const cuteReactions = [
             '<:pupperBless:781254877682729001>',
             '<:disaSmile:812821278984765490>',
