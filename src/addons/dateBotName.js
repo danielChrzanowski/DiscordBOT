@@ -33,10 +33,10 @@ module.exports = {
         }
 
         function showDate() {
-            const currentDate = await globalVariables.execute("currentDate");
+            const currentDate = globalVariables.execute("currentDate");
             client.user.setActivity(currentDate, { type: 'WATCHING' });
 
-            if (hours % 2 == 0) changeBotName();
+            if (globalVariables.execute("evenHour")) changeBotName();
         }
 
         function changeBotName() {

@@ -1,7 +1,7 @@
 module.exports = {
     description: 'Stores global reactions',
 
-    async execute(variable) {
+    execute(variable) {
         const cuteReactions = [
             '<:pupperBless:781254877682729001>',
             '<:disaSmile:812821278984765490>',
@@ -20,9 +20,11 @@ module.exports = {
         switch (variable) {
             case "cuteReactions":
                 return cuteReactions;
+
             case "nekoReactions":
                 return nekoReactions;
-            case "currentDate": {
+
+            case "currentDate":
                 date_ob = new Date();
                 let hours = ((date_ob.getHours() + 2) < 10 ? '0' : '') + (date_ob.getHours() + 2);
                 let minutes = (date_ob.getMinutes() < 10 ? '0' : '') + date_ob.getMinutes();
@@ -31,9 +33,13 @@ module.exports = {
                 let year = date_ob.getFullYear();
 
                 if (hours == 24) hours == 0;
-
                 return currentTime = hours + ":" + minutes + " | " + day + "-" + month + "-" + year;
-            }
+
+            case "evenHour":
+                date_ob = new Date();
+                let hours = ((date_ob.getHours() + 2) < 10 ? '0' : '') + (date_ob.getHours() + 2);
+
+                return (hours % 2 == 0);
         }
     }
 }
