@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const dateAvatar = require('./addons/dateAvatar.js');
+const dateBotName = require('./addons/dateBotName.js');
 const client = new Discord.Client();
 require('dotenv').config();
 
@@ -12,7 +12,7 @@ client.events = new Discord.Collection();
 
 client.on('ready', () => {
     client.user.setActivity("Getting current date...", { type: 'WATCHING' });
-    dateAvatar.execute(client);
+    dateBotName.execute(client);
     console.log('Dzieci Neo is online!');
 });
 

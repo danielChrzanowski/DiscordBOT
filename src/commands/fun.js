@@ -3,7 +3,14 @@ module.exports = {
     description: 'Shows fun photo',
 
     execute(client, message) {
-        message.channel.send(`Fun <:uganda:783095652212670514>`, { files: ["./src/assets/fun.png"] });
+        try {
+            message.channel.send(`Fun <:uganda:783095652212670514>`,
+                { files: ["./src/assets/fun.png"] });
+        } catch (error) {
+            console.log(error);
+            client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("--------------\nFun nie działa :(\n" + globalVariables.execute("currentDate"));
+            message.reply("nie ma, bo sie obrazek wywalił :(");
+        }
     }
-    
+
 }

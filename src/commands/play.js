@@ -1,5 +1,6 @@
 const ytdl = require('ytdl-core');
 const ytSearch = require('yt-search');
+const globalVariables = require('../addons/globalVariables.js');
 
 const queue = new Map();
 
@@ -15,62 +16,66 @@ module.exports = {
         if (!message.member.hasPermission("CONNECT")) return message.reply('nie masz wystarczających uprawnień');
         if (!message.member.hasPermission("SPEAK")) return message.reply('nie masz wystarczających uprawnień');
 
-        const server_queue = queue.get(message.guild.id);
+        try {
+            const server_queue = queue.get(message.guild.id);
 
-        if (cmd === 'play') {
-            if (!args.length) return message.reply('musisz podać nazwę lub link do YT');
-            let song = {};
+            if (cmd === 'play') {
+                if (!args.length) return message.reply('musisz podać nazwę lub link do YT');
+                let song = {};
 
-            if (ytdl.validateURL(args[0])) {
-                const song_info = await ytdl.getInfo(args[0]);
-                song = { title: song_info.videoDetails.title, url: song_info.videoDetails.video_url }
-
-            } else {
-                const video_finder = async (query) => {
-                    const video_result = await ytSearch(query);
-                    return (video_result.videos.length > 1) ? video_result.videos[0] : null;
-                }
-
-                const video = await video_finder(args.join(' '));
-                if (video) {
-                    song = { title: video.title, url: video.url }
+                if (ytdl.validateURL(args[0])) {
+                    const song_info = await ytdl.getInfo(args[0]);
+                    song = { title: song_info.videoDetails.title, url: song_info.videoDetails.video_url }
 
                 } else {
-                    message.reply('błąd przy przeszukiwaniu YT D:');
-                }
-            }
+                    const video_finder = async (query) => {
+                        const video_result = await ytSearch(query);
+                        return (video_result.videos.length > 1) ? video_result.videos[0] : null;
+                    }
 
-            if (!server_queue) {
-                const queue_constructor = {
-                    voice_channel: voice_channel,
-                    text_channel: message.channel,
-                    connection: null,
-                    songs: []
-                }
+                    const video = await video_finder(args.join(' '));
+                    if (video) {
+                        song = { title: video.title, url: video.url }
 
-                queue.set(message.guild.id, queue_constructor);
-                queue_constructor.songs.push(song);
-
-                try {
-                    const connection = await voice_channel.join();
-                    queue_constructor.connection = connection;
-                    video_player(message.guild, queue_constructor.songs[0]);
-
-                } catch (err) {
-                    queue.delete(message.guild.id);
-                    message.reply('wystąpił problem z połączeniem');
-                    throw err;
+                    } else {
+                        message.reply('błąd przy przeszukiwaniu YT D:');
+                    }
                 }
 
-            } else {
-                server_queue.songs.push(song);
-                return message.channel.send(`-------------------------------\nDodano do kolejki: **${song.title}**`);
-            }
+                if (!server_queue) {
+                    const queue_constructor = {
+                        voice_channel: voice_channel,
+                        text_channel: message.channel,
+                        connection: null,
+                        songs: []
+                    }
+
+                    queue.set(message.guild.id, queue_constructor);
+                    queue_constructor.songs.push(song);
+
+                    try {
+                        const connection = await voice_channel.join();
+                        queue_constructor.connection = connection;
+                        video_player(message.guild, queue_constructor.songs[0]);
+
+                    } catch (err) {
+                        queue.delete(message.guild.id);
+                        message.reply('wystąpił problem z połączeniem');
+                        throw err;
+                    }
+
+                } else {
+                    server_queue.songs.push(song);
+                    return message.channel.send(`-------------------------------\nDodano do kolejki: **${song.title}**`);
+                }
+            } else if (cmd === 'skip') skip_song(message, server_queue);
+            else if (cmd === 'stop') stop_song(message, server_queue);
+        } catch (error) {
+            console.log(error);
+            client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("--------------\nMuzyka nie działa :(\n" + globalVariables.execute("currentDate"));
+            message.reply("muzyka nie działa, bo API nie działa :(");
         }
-        else if (cmd === 'skip') skip_song(message, server_queue);
-        else if (cmd === 'stop') stop_song(message, server_queue);
     }
-
 }
 
 const video_player = async (guild, song) => {

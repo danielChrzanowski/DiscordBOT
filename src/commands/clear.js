@@ -12,9 +12,15 @@ module.exports = {
 
         var deleteSize = parseInt(args[0]) + 1;
 
-        await message.channel.messages.fetch({ limit: deleteSize }).then(messages => {
-            message.channel.bulkDelete(messages);
-        });
+        try {
+            await message.channel.messages.fetch({ limit: deleteSize }).then(messages => {
+                message.channel.bulkDelete(messages);
+            });
+        } catch (error) {
+            console.log(error);
+            client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("--------------\nKasowanie wiadomości nie działa :(\n" + globalVariables.execute("currentDate"));
+            message.reply("siem coś popsuło, abo co :(");
+        }
     }
 
 }
