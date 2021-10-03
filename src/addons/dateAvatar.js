@@ -40,7 +40,7 @@ module.exports = {
             var currentTime = hours + ":" + minutes + " | " + day + "-" + month + "-" + year;
             client.user.setActivity(currentTime, { type: 'WATCHING' });
 
-            if (hours == 12 && minutes == 0) changeAvatar();
+            if (hours % 2 == 0) changeAvatar();
         }
 
         function changeAvatar() {
