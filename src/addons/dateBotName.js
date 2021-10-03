@@ -44,18 +44,22 @@ module.exports = {
                 switch (botNameNumber) {
                     case 0:
                         client.user.setUsername("Dzieci Neo");
+                        console.log('Changed bot name to: Dzieci Neo');
                         break;
 
                     case 1:
                         client.user.setUsername("What is life?");
+                        console.log('Changed bot name to: What is life?');
                         break;
 
                     case 2:
                         client.user.setUsername("Kulka Pog");
+                        console.log('Changed bot name to: Kulka Pog');
                         break;
 
                     case 3:
                         client.user.setUsername("Weaver OP");
+                        console.log('Changed bot name to: Weaver OP');
                         break;
                 }
 
