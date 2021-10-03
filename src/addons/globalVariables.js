@@ -26,20 +26,20 @@ module.exports = {
 
             case "currentDate":
                 date_ob = new Date();
-                let hours = ((date_ob.getHours() + 2) < 10 ? '0' : '') + (date_ob.getHours() + 2);
-                let minutes = (date_ob.getMinutes() < 10 ? '0' : '') + date_ob.getMinutes();
-                let day = (date_ob.getDate() < 10 ? '0' : '') + date_ob.getDate();
-                let month = ((date_ob.getMonth() + 1) < 10 ? '0' : '') + (date_ob.getMonth() + 1);
-                let year = date_ob.getFullYear();
+                var hours = ((date_ob.getHours() + 2) < 10 ? '0' : '') + (date_ob.getHours() + 2);
+                var minutes = (date_ob.getMinutes() < 10 ? '0' : '') + date_ob.getMinutes();
+                var day = (date_ob.getDate() < 10 ? '0' : '') + date_ob.getDate();
+                var month = ((date_ob.getMonth() + 1) < 10 ? '0' : '') + (date_ob.getMonth() + 1);
+                var year = date_ob.getFullYear();
 
                 if (hours == 24) hours == 0;
                 return currentTime = hours + ":" + minutes + " | " + day + "-" + month + "-" + year;
 
-            case "evenHour":
+            case "fullHour":
                 date_ob = new Date();
-                let hours = ((date_ob.getHours() + 2) < 10 ? '0' : '') + (date_ob.getHours() + 2);
+                var minutes = date_ob.getMinutes();
 
-                return (hours % 2 == 0);
+                return (minutes == 0);
         }
     }
 }

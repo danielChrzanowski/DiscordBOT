@@ -36,7 +36,7 @@ module.exports = {
             const currentDate = globalVariables.execute("currentDate");
             client.user.setActivity(currentDate, { type: 'WATCHING' });
 
-            if (globalVariables.execute("evenHour")) changeBotName();
+            if (globalVariables.execute("fullHour")) changeBotName();
         }
 
         function changeBotName() {
