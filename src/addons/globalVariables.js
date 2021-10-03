@@ -28,8 +28,7 @@ module.exports = {
                 date_ob = new Date();
                 var hours;
 
-                console.log(date_ob.getHours() + 2);
-                if (date_ob.getHours() + 2 === 0) {
+                if (date_ob.getHours() + 2 === 24) {
                     hours = '00';
                 } else {
                     hours = ((date_ob.getHours() + 2) < 10 ? '0' : '') + (date_ob.getHours() + 2);
