@@ -36,7 +36,7 @@ module.exports = {
             const currentDate = globalVariables.execute("currentDate");
             client.user.setActivity(currentDate, { type: 'WATCHING' });
 
-            //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa if (hours % 2 == 0) changeBotName();
+            if (hours % 2 == 0) changeBotName();
         }
 
         function changeBotName() {
