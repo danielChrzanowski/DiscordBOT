@@ -26,19 +26,14 @@ module.exports = {
 
             case "currentDate":
                 date_ob = new Date();
+                date_ob.setHours(date_ob.getHours() + 2);
                 var hours;
 
-                if (date_ob.getHours() + 2 === 24) {
+                if (date_ob.getHours() === 24) {
                     hours = '00';
                 } else {
-                    if (date_ob.getHours() + 2 === 25) {
-                        hours = '01';
-                    } else {
-                        hours = ((date_ob.getHours() + 2) < 10 ? '0' : '') + (date_ob.getHours() + 2);
-
-                    }
+                    hours = ((date_ob.getHours()) < 10 ? '0' : '') + (date_ob.getHours());
                 }
-
 
                 var minutes = (date_ob.getMinutes() < 10 ? '0' : '') + date_ob.getMinutes();
                 var day = (date_ob.getDate() < 10 ? '0' : '') + date_ob.getDate();
@@ -49,6 +44,7 @@ module.exports = {
 
             case "fullHour":
                 date_ob = new Date();
+                date_ob.setHours(date_ob.getHours() + 2);
                 var minutes = date_ob.getMinutes();
 
                 return (minutes == 0);
