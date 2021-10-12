@@ -53,7 +53,7 @@ module.exports = {
             const encodedChart = encodeURIComponent(JSON.stringify(chart));
             const chartUrl = `https://quickchart.io/chart?c=${encodedChart}`;
 
-            const msg = await message.channel.send(chartUrl);
+            message.channel.send(chartUrl);
 
         } catch (error) {
             console.log(error);
