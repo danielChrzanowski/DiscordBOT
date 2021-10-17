@@ -69,7 +69,7 @@ module.exports = {
             const chartUrl = `https://quickchart.io/chart?c=${encodedChart}`;
 
             await message.channel.send(chartUrl);
-            message.channel.send("--------------\nŹródło: https://about-corona.net/documentation");
+            message.channel.send("Źródło: <https://about-corona.net/documentation>");
 
         } catch (error) {
             console.log(error);
