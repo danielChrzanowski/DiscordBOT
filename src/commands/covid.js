@@ -68,8 +68,13 @@ module.exports = {
             const encodedChart = encodeURIComponent(JSON.stringify(chart));
             const chartUrl = `https://quickchart.io/chart?c=${encodedChart}`;
 
-            await message.channel.send(chartUrl);
-            message.channel.send("Źródło: <https://about-corona.net/documentation>");
+            message.channel.send({
+                embed: {
+                    color: "#c92a2a",
+                    description: "Źródło: <https://about-corona.net/documentation>",
+                    image: { url: chartUrl }
+                }
+            });
 
         } catch (error) {
             console.log(error);
