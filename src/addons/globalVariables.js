@@ -26,7 +26,7 @@ module.exports = {
 
             case "currentDate":
                 date_ob = new Date();
-                date_ob.setHours(date_ob.getHours() + 2);
+                date_ob.setHours(date_ob.getHours() + 1);
                 var hours;
 
                 if (date_ob.getHours() === 24) {
