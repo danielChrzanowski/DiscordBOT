@@ -27,6 +27,8 @@ module.exports = {
             case "currentDate":
                 date_ob = new Date();
                 date_ob.setHours(date_ob.getHours() + 1);
+
+                date_ob = checkSummerTime(date_ob);
                 var hours;
 
                 if (date_ob.getHours() === 24) {
@@ -48,6 +50,30 @@ module.exports = {
                 var minutes = date_ob.getMinutes();
 
                 return (minutes == 0);
+        }
+
+        function checkSummerTime(date_ob) {
+            if (date_ob.getMonth() + 1 > 3 && date_ob.getMonth() + 1 < 10) {
+                date_ob.setHours(date_ob.getHours() + 1);
+            } else {
+                if (date_ob.getMonth() + 1 == 3 && date_ob.getDate() > 28) {
+                    date_ob.setHours(date_ob.getHours() + 1);
+                } else {
+                    if (date_ob.getMonth() + 1 == 3 && date_ob.getDate() == 28 && date_ob.getHours() >= 2) {
+                        date_ob.setHours(date_ob.getHours() + 1);
+                    }
+                }
+
+                if (date_ob.getMonth() + 1 == 10 && date_ob.getDate() == 31 && date_ob.getHours() < 2) {
+                    date_ob.setHours(date_ob.getHours() + 1);
+                } else {
+                    if (date_ob.getMonth() + 1 == 10 && date_ob.getDate() < 31) {
+                        date_ob.setHours(date_ob.getHours() + 1);
+                    }
+                }
+            }
+
+            return date_ob;
         }
     }
 }
