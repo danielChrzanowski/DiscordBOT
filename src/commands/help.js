@@ -13,7 +13,7 @@ module.exports = {
         -fun -> fun :)
         -neko [argument] -> losowe neko z parametrem
         -nekoHelp -> parametry do neko
-        -ps2 -> populacja PS2 - Miller
+        -ps2 <nick> -> populacja PS2 - Miller <statystyki gracza>
         -covid -> nowe potwierdzone przypadki covid-19 w Polsce`);
     }
 }

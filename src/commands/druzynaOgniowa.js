@@ -9,7 +9,7 @@ module.exports = {
         } catch (error) {
             console.log(error);
             client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("--------------\nDrużyna ogniowa nie działa :(\n" + globalVariables.execute("currentDate"));
-            message.reply("nie ma, bo sie obrazek wywalił :(");
+            message.reply("nie ma, bo się obrazek wywalił :(");
         }
     }
 
