@@ -7,6 +7,7 @@ module.exports = {
         -play, -skip, -stop -> muzyka
         -cat -> losowy koteł
         -doge -> losowy pieseł
+        -dogeCounter -> twój licznik piesełów
         -clear <ile> -> kasowanie wiadomości (max: 100 wiadomości, 14 dni wstecz)
         -sleep [użytkownicy] -> kick z głosowego
         -druzynaOgniowa -> woła do gry REEE

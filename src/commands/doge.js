@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 const getRandom = require('../addons/random.js');
 const globalVariables = require('../addons/globalVariables.js');
+const firebase = require('../firebase/firebaseHandler.js');
 
 module.exports = {
     name: 'doge',
@@ -17,6 +18,8 @@ module.exports = {
 
             const i = getRandom.execute(0, reactions.length - 1);
             msg.react(reactions[i]);
+            
+            await firebase.execute("setDogeCounter", message.author.id);
         } catch (error) {
             console.log(error);
             client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("--------------\nAPI pieseła nie działa :(\n" + globalVariables.execute("currentDate"));
