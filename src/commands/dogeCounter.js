@@ -1,4 +1,5 @@
 const firebase = require('../firebase/firebaseHandler.js');
+const getRandom = require('../addons/random.js');
 const globalVariables = require('../addons/globalVariables.js');
 
 module.exports = {
@@ -9,6 +10,7 @@ module.exports = {
         const reactions = globalVariables.execute("cuteReactions");
        
         const msg = await message.reply("Twój doge counter: " + await firebase.execute("getDogeCounter", message.author.id));
-        msg.react(reactions[0]);
+        const i = getRandom.execute(0, reactions.length - 1);
+        msg.react(reactions[i]);
     }
 }
