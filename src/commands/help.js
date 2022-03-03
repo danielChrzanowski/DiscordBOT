@@ -8,13 +8,15 @@ module.exports = {
         -cat -> losowy koteł
         -doge -> losowy pieseł
         -dogeCounter -> twój licznik piesełów
+        -dogeCounter [użytkownicy] -> licznik piesełów
         -clear <ile> -> kasowanie wiadomości (max: 100 wiadomości, 14 dni wstecz)
         -sleep [użytkownicy] -> kick z głosowego
         -druzynaOgniowa -> woła do gry REEE
         -fun -> fun :)
         -neko [argument] -> losowe neko z parametrem
         -nekoHelp -> parametry do neko
-        -ps2 <nick> -> populacja PS2 - Miller <statystyki gracza>
+        -ps2 -> populacja PS2 - Miller
+        -ps2 <nick> -> statystyki gracza
         -covid -> nowe potwierdzone przypadki covid-19 w Polsce`);
     }
 }

@@ -2,7 +2,7 @@ module.exports = {
     name: 'sleep',
     description: 'Disconnects voice channel users',
 
-    execute(client, message, args, Discord) {
+    execute(client, message, args) {
         if (!args.length) return message.reply('musisz podać użytkowników do uspania');
         if (!message.member.hasPermission("MOVE_MEMBERS")) return message.reply('Nie masz wystarczających uprawnień');
 
@@ -15,7 +15,7 @@ module.exports = {
                     message.reply('jak śmiesz próbować mnie kickować <:pathetic:776129039688663061>');
 
                 } else {
-                    memberTarget = message.guild.members.cache.get(user.id);
+                    let memberTarget = message.guild.members.cache.get(user.id);
                     if (memberTarget.voice.channel) {
                         rand = getRandomInt(0, 3);
 
