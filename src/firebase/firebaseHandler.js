@@ -4,7 +4,7 @@ module.exports = {
     name: 'firebase',
     description: 'Firebase handler',
 
-    async execute(variable, id) {
+    async execute(variable, id, username) {
         const db = admin.firestore();
 
         switch (variable) {
@@ -16,6 +16,7 @@ module.exports = {
 
                 const docRef = db.collection('doges').doc(id);
                 await docRef.set({
+                    username: username,
                     dogeCounter: dogeCounter
                 });
 

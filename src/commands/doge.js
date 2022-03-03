@@ -18,8 +18,8 @@ module.exports = {
 
             const i = getRandom.execute(0, reactions.length - 1);
             msg.react(reactions[i]);
-            
-            await firebase.execute("setDogeCounter", message.author.id);
+
+            await firebase.execute("setDogeCounter", message.author.id, message.author.username);
         } catch (error) {
             console.log(error);
             client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("--------------\nAPI pieseła nie działa :(\n" + globalVariables.execute("currentDate"));
