@@ -13,7 +13,7 @@ module.exports = {
         -sleep [użytkownicy] -> kick z głosowego
         -druzynaOgniowa -> woła do gry REEE
         -fun -> fun :)
-        -neko [argument] -> losowe neko z parametrem
+        -neko <argument> -> losowe neko z parametrem
         -nekoHelp -> parametry do neko
         -ps2 -> populacja PS2 - Miller
         -ps2 <nick> -> statystyki gracza
