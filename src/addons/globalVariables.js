@@ -52,31 +52,10 @@ module.exports = {
         }
 
         function checkSummerTime(date_ob) {
-            if (date_ob.getMonth() + 1 > 3 && date_ob.getMonth() + 1 < 10) {
-                date_ob.setHours(date_ob.getHours() + 1);
-                return date_ob;
-            } else {
-                if (date_ob.getMonth() + 1 == 3 && date_ob.getDate() > 27) {
-                    date_ob.setHours(date_ob.getHours() + 1);
-                    return date_ob;
-                } else {
-                    if (date_ob.getMonth() + 1 == 3 && date_ob.getDate() == 27 && date_ob.getHours() >= 2) {
-                        date_ob.setHours(date_ob.getHours() + 1);
-                        return date_ob;
-                    }
-                }
+            const january = new Date(date_ob.getFullYear(), 0, 1).getTimezoneOffset();
+            const july = new Date(date_ob.getFullYear(), 6, 1).getTimezoneOffset();
 
-                if (date_ob.getMonth() + 1 == 10 && date_ob.getDate() == 31 && date_ob.getHours() < 2) {
-                    date_ob.setHours(date_ob.getHours() + 1);
-                    return date_ob;
-                } else {
-                    if (date_ob.getMonth() + 1 == 10 && date_ob.getDate() < 31) {
-                        date_ob.setHours(date_ob.getHours() + 1);
-                        return date_ob;
-                    }
-                }
-            }
-
+            if (Math.max(january, july) !== date_ob.getTimezoneOffset()) date_ob.setHours(date_ob.getHours() + 1);
             return date_ob;
         }
     }
