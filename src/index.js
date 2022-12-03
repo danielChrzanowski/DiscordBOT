@@ -8,15 +8,15 @@ server.use((req, res) => {
     res.end(JSON.stringify({ test: 'test' }));
 });
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-    console.log('Server listening on http://localhost:' + PORT)
+    console.log('Server listening on http://localhost:' + PORT);
 });
 
 setInterval(async () => {
     await fetch('https://dzieci-neo-gzr5.onrender.com')
         .then(() => console.log("pinged"));
-}, 3000);
+}, 1800000);
 
 
 //DISCORD
