@@ -13,10 +13,14 @@ server.listen(PORT, () => {
     console.log('Server listening on http://localhost:' + PORT);
 });
 
+let i = 1;
 setInterval(async () => {
     await fetch('https://dzieci-neo-gzr5.onrender.com')
-        .then(() => console.log("pinged"));
-}, 1800000);
+        .then(() => {
+            console.log("Ping: " + i);
+            i++;
+        });
+}, 900000);
 
 
 //DISCORD
