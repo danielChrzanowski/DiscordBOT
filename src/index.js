@@ -5,7 +5,7 @@ const fetch = require('node-fetch');
 
 server.use((req, res) => {
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify({ a: 1 }));
+    res.end(JSON.stringify({ test: 'test' }));
 });
 
 const PORT = process.env.PORT || 3000
@@ -13,14 +13,11 @@ server.listen(PORT, () => {
     console.log('Server listening on http://localhost:' + PORT)
 });
 
+setInterval(async () => {
+    await fetch('https://dzieci-neo-gzr5.onrender.com')
+        .then(() => console.log("pinged"));
+}, 3000);
 
-console.log("-------------------------");
-async function pingRender() {
-    setInterval(async () => {
-        await fetch('https://dzieci-neo-gzr5.onrender.com/')
-            .then(response => console.log("qwe"));
-    }, 3000);
-}
 
 //DISCORD
 const Discord = require('discord.js');
