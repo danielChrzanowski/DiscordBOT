@@ -3,9 +3,10 @@ const express = require('express');
 const server = express();
 const fetch = require('node-fetch');
 
+let i = 1;
 server.use((req, res) => {
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify({ test: 'test' }));
+    res.end(JSON.stringify({ pingId: i }));
 });
 
 const PORT = process.env.PORT || 3000;
@@ -13,7 +14,6 @@ server.listen(PORT, () => {
     console.log('Server listening on http://localhost:' + PORT);
 });
 
-let i = 1;
 setInterval(async () => {
     await fetch('https://dzieci-neo-gzr5.onrender.com')
         .then(() => {
