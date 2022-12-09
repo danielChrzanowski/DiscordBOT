@@ -20,7 +20,7 @@ setInterval(async () => {
             console.log("Ping: " + i);
             i++;
         });
-}, 900000);
+}, 300000);
 
 
 //DISCORD
