@@ -22,7 +22,7 @@ module.exports = {
             await firebase.execute("setDogeCounter", message.author.id, message.author.username);
         } catch (error) {
             console.log(error);
-            client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("--------------\nAPI pieseła nie działa :(\n" + globalVariables.execute("currentDate"));
+            client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("API pieseła nie działa :(");
             message.reply("nie ma pieseła, bo API nie działa :(");
         }
     }

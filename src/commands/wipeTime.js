@@ -1,11 +1,11 @@
 const random = require('../addons/random.js');
 
 module.exports = {
-    name: 'druzynaogniowa',
-    description: 'Calls for Destiny 2 role',
+    name: 'wipetime',
+    description: 'Calls for BnS role',
 
     execute(client, message) {
-        const roleName = "Destiny 2";
+        const roleName = "BnS";
         const role = message.guild.roles.cache.find(r => r.name === roleName);
 
         if (role) {
@@ -19,20 +19,20 @@ module.exports = {
 
                 switch (randomImageIndex) {
                     case 0:
-                        imageName = 'druzynaOgniowa.png'
+                        imageName = 'doge.jpg'
                         break;
 
                     case 1:
-                        imageName = 'druzynaOgniowa2.png'
+                        imageName = 'doge.jpg'
                         break;
                 }
 
-                message.channel.send(`${mentions} Gramy w gre REEEEEE <:catNooo:777774153402679308>`, {
+                message.channel.send(`${mentions} It's WIPE TIME! <:catNooo:777774153402679308>`, {
                     files: [`./src/assets/${imageName}`]
                 });
             } catch (error) {
                 console.log(error);
-                client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("Drużyna ogniowa nie działa :(");
+                client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("Wipe time nie działa :(");
                 message.reply("nie ma, bo się obrazek wywalił :(");
             }
         } else {

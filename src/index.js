@@ -25,7 +25,7 @@ setInterval(async () => {
 
 //DISCORD
 const Discord = require('discord.js');
-const dateBotName = require('./addons/dateBotName.js');
+const botStatus = require('./addons/botStatus.js');
 const client = new Discord.Client();
 const firebaseAdmin = require("firebase-admin");
 require('dotenv').config();
@@ -47,8 +47,7 @@ client.on('ready', () => {
         databaseURL: process.env.FIREBASE_DATABASE_URL,
     });
 
-    client.user.setActivity("Getting current date...", { type: 'WATCHING' });
-    dateBotName.execute(client);
+    botStatus.execute(client);
     console.log('Dzieci Neo is online!');
 });
 

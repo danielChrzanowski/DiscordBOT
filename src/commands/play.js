@@ -1,6 +1,5 @@
 const ytdl = require('ytdl-core');
 const ytSearch = require('yt-search');
-const globalVariables = require('../addons/globalVariables.js');
 
 const queue = new Map();
 
@@ -72,7 +71,7 @@ module.exports = {
             else if (cmd === 'stop') stop_song(message, server_queue);
         } catch (error) {
             console.log(error);
-            client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("--------------\nMuzyka nie działa :(\n" + globalVariables.execute("currentDate"));
+            client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("Muzyka nie działa :(");
             message.reply("muzyka nie działa, bo API nie działa :(");
         }
     }

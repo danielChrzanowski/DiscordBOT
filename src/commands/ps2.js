@@ -77,7 +77,7 @@ module.exports = {
             }
         } catch (error) {
             console.log(error);
-            client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("--------------\nPS2 nie działa :(\n" + globalVariables.execute("currentDate"));
+            client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("PS2 nie działa :(");
             message.reply("nie ma wykresu, bo API nie działa :(");
         }
     }

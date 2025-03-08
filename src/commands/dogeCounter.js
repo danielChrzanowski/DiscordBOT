@@ -27,7 +27,7 @@ module.exports = {
             msg.react(reactions[i]);
         } catch (error) {
             console.log(error);
-            client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("--------------\nBaza danych firebase nie działa :(\n" + globalVariables.execute("currentDate"));
+            client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("Baza danych firebase nie działa :(");
             message.reply("podano złe parametry albo baza danych płonie :(");
         }
     }

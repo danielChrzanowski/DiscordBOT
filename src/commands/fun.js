@@ -8,7 +8,7 @@ module.exports = {
                 { files: ["./src/assets/fun.png"] });
         } catch (error) {
             console.log(error);
-            client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("--------------\nFun nie działa :(\n" + globalVariables.execute("currentDate"));
+            client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("Fun nie działa :(");
             message.reply("nie ma, bo sie obrazek wywalił :(");
         }
     }

@@ -11,7 +11,7 @@ module.exports = {
 
         try {
             let url;
-            
+
             await fetch('https://randomfox.ca/floof/')
                 .then(response => response.json())
                 .then(data => url = data.image);
@@ -22,7 +22,7 @@ module.exports = {
             msg.react(reactions[i]);
         } catch (error) {
             console.log(error);
-            client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("--------------\nAPI foxika nie działa :(\n" + globalVariables.execute("currentDate"));
+            client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("API foxika nie działa :(");
             message.reply("nie ma foxika, bo API nie działa :(");
         }
     }
