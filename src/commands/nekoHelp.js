@@ -6,7 +6,7 @@ module.exports = {
 
     execute(client, message) {
         const nekoParameters = globalVariables.execute("nekoParameters");
-        message.channel.send(`PARAMETRY NEKO: <puste>, ${nekoParameters.join(', ')}`);
+        message.channel.send(`PARAMETRY NEKO: ${nekoParameters.join(', ')}`);
     }
 
 }

@@ -11,6 +11,11 @@ module.exports = {
         const parameters = globalVariables.execute('nekoParameters');
         const NSWParameters = ['explicit'];
 
+        if (args.length < 1) {
+            message.reply('musisz podać parametr');
+            return nekoHelp.execute(client, message);
+        }
+
         if (args[0]) {
             const correctParameter = parameters.some(element => element === args[0]);
             if (!correctParameter) {
@@ -19,9 +24,8 @@ module.exports = {
             }
 
             const NSW = NSWParameters.includes(args[0]) && !message.channel.nsfw;
-            if (NSW) {
-                return message.reply('możesz użyć tego argumentu tylko na kanale NSFW');
-            }
+            if (NSW) return message.reply('możesz użyć tego argumentu tylko na kanale NSFW');
+
         }
 
         try {

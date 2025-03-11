@@ -12,7 +12,7 @@ module.exports = {
             { name: "Jinxie <3", activity: "zdjęcia piesków", type: "WATCHING" },
             { name: "Syn Foxa", activity: "TOP 1 DPS", type: "COMPETING" },
             { name: "Najlepszy BOT", activity: "Blade & Soul", type: "PLAYING" },
-            { name: "Noob Team", activity: "dźwięki przyrody", type: "LISTENING" }
+            { name: "MC Kreto", activity: "płyty chodnikowa", type: "LISTENING" }
         ];
 
         let randomStatus;
