@@ -6,10 +6,13 @@ module.exports = {
 
     async execute(client) {
         const botStatuses = [
-            { name: "Dzieci Neo", activity: "nagie kwiatki" },
-            { name: "Jinx żyje!", activity: "Arcane S2 E9" },
-            { name: "MENADŻERKINIA", activity: "stópki Flory" },
-            { name: "Jinxie <3", activity: "zdjęcia piesków" }
+            { name: "Dzieci Neo", activity: "nagie kwiatki", type: "WATCHING" },
+            { name: "Jinx żyje!", activity: "Arcane S2 E9", type: "WATCHING" },
+            { name: "MENADŻERKINIA", activity: "stópki Flory", type: "WATCHING" },
+            { name: "Jinxie <3", activity: "zdjęcia piesków", type: "WATCHING" },
+            { name: "Syn Foxa", activity: "TOP 1 DPS", type: "COMPETING" },
+            { name: "Najlepszy BOT", activity: "Blade & Soul", type: "PLAYING" },
+            { name: "Noob Team", activity: "dźwięki przyrody", type: "LISTENING" }
         ];
 
         let randomStatus;
@@ -26,11 +29,11 @@ module.exports = {
         }
 
         function setBotUsernameAndActivity() {
-            const { name: botName, activity: botActivity } = botStatuses[randomStatus];
+            const { name, activity, type } = botStatuses[randomStatus];
 
             try {
-                client.user.setUsername(botName);
-                client.user.setActivity(botActivity, { type: 'WATCHING' });
+                client.user.setUsername(name);
+                client.user.setActivity(activity, { type });
             } catch (error) {
                 console.log(error);
                 client.channels.cache.get(process.env.LOG_CHANNEL_ID).send(error);

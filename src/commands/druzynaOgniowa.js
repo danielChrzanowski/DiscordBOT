@@ -5,38 +5,23 @@ module.exports = {
     description: 'Calls for Destiny 2 role',
 
     execute(client, message) {
-        const roleName = "Destiny 2";
-        const role = message.guild.roles.cache.find(r => r.name === roleName);
+        const roleId = '1348065128117178368';
+        const images = ['druzynaOgniowa.png', 'druzynaOgniowa2.png'];
 
-        if (role) {
-            const membersWithRole = message.guild.members.cache.filter(member => member.roles.cache.has(role.id));
-            const mentions = membersWithRole.map(member => `<@${member.id}>`).join(" ");
+        try {
+            const randomImage = images[random.execute(0, images.length - 1)];
 
-            try {
-                const imagesCount = 2;
-                const randomImageIndex = random.execute(0, imagesCount - 1);
-                let imageName;
+            message.channel.send({
+                content: `<@&${roleId}> Gramy w grę REEEEEE <:catNooo:777774153402679308>`,
+                files: [`./src/assets/${randomImage}`]
+            });
+        } catch (error) {
+            console.error(error);
 
-                switch (randomImageIndex) {
-                    case 0:
-                        imageName = 'druzynaOgniowa.png'
-                        break;
+            const logChannel = client.channels.cache.get(process.env.LOG_CHANNEL_ID);
+            if (logChannel) logChannel.send("-druzynaOgniowa nie działa :(");
 
-                    case 1:
-                        imageName = 'druzynaOgniowa2.png'
-                        break;
-                }
-
-                message.channel.send(`${mentions} Gramy w gre REEEEEE <:catNooo:777774153402679308>`, {
-                    files: [`./src/assets/${imageName}`]
-                });
-            } catch (error) {
-                console.log(error);
-                client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("Drużyna ogniowa nie działa :(");
-                message.reply("nie ma, bo się obrazek wywalił :(");
-            }
-        } else {
-            message.channel.send(`Nie znaleziono roli o nazwie: ${roleName}`);
+            message.reply("Nie ma, bo się obrazek wywalił :(");
         }
     }
 }
