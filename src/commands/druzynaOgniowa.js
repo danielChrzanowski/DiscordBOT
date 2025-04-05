@@ -13,7 +13,7 @@ module.exports = {
 
             message.channel.send({
                 content: `<@&${roleId}> Gramy w grę REEEEEE <:catNooo:777774153402679308>`,
-                files: [`./src/assets/${randomImage}`]
+                files: [`./src/assets/destiny/${randomImage}`]
             });
         } catch (error) {
             console.error(error);

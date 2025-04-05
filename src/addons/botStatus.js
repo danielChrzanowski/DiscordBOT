@@ -12,13 +12,12 @@ module.exports = {
             { name: "Jinxie <3", activity: "zdjęcia piesków", type: "WATCHING" },
             { name: "Syn Foxa", activity: "TOP 1 DPS", type: "COMPETING" },
             { name: "Najlepszy BOT", activity: "Blade & Soul", type: "PLAYING" },
-            { name: "MC Kreto", activity: "płyty chodnikowa", type: "LISTENING" }
+            { name: "Hehe", activity: "jak trawa rośnie", type: "LISTENING" }
         ];
 
         let randomStatus;
         let previousStatus;
 
-        updateBotStatus();
         setInterval(() => {
             updateBotStatus();
         }, 3600000);

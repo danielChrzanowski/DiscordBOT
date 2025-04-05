@@ -6,14 +6,13 @@ module.exports = {
 
     execute(client, message) {
         const roleId = '1348017014869987469';
-        const images = ['doge.jpg', 'doge.jpg'];
 
         try {
-            const randomImage = images[random.execute(0, images.length - 1)];
+            const randomImage = `${random.execute(0, 18)}.jpg`;
 
             message.channel.send({
                 content: `<@&${roleId}> It's WIPE TIME! <:catNooo:777774153402679308>`,
-                files: [`./src/assets/${randomImage}`]
+                files: [`./src/assets/bns/${randomImage}`]
             });
         } catch (error) {
             console.error(error);
