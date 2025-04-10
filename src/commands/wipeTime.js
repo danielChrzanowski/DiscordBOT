@@ -8,7 +8,7 @@ module.exports = {
         const roleId = '1348017014869987469';
 
         try {
-            const randomImage = `${random.execute(0, 18)}.jpg`;
+            const randomImage = `${random.execute(0, 7)}.jpg`;
 
             message.channel.send({
                 content: `<@&${roleId}> It's WIPE TIME! <:catNooo:777774153402679308>`,

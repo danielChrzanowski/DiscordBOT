@@ -14,7 +14,6 @@ module.exports = {
         -druzynaOgniowa -> woła do Destiny 2 REEE
         -wipeTime -> woła do BnS REEE
         -fun -> fun :)
-        -neko -> losowe neko
         -neko <argument> -> losowe neko z parametrem
         -nekoHelp -> parametry do neko
         -ps2 -> populacja PS2 - Miller
