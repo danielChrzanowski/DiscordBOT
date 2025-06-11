@@ -1,25 +1,28 @@
 const fetch = require('node-fetch');
-const getRandom = require('../addons/random.js');
-const globalVariables = require('../addons/globalVariables.js');
+const Discord = require('discord.js');
 
 module.exports = {
-    name: 'fox',
-    description: 'Prints random fox',
+    name: 'summonfox',
+    description: 'Summons The Fox',
 
     async execute(client, message) {
-        const reactions = globalVariables.execute("cuteReactions");
-
         try {
+            const imaginaryFoxId = '<@337220705252802571>';
             let url;
 
             await fetch('https://randomfox.ca/floof/')
                 .then(response => response.json())
                 .then(data => url = data.image);
 
-            const msg = await message.channel.send(url);
+            const embed = new Discord.MessageEmbed()
+                .setImage(url)
+                .setColor('#e67e22');
+            const msg = await message.channel.send(
+                `Summon ${imaginaryFoxId} <:catNooo:777774153402679308>`,
+                embed
+            );
 
-            const i = getRandom.execute(0, reactions.length - 1);
-            msg.react(reactions[i]);
+            msg.react('<:chibiFox:474699471670738954>');
         } catch (error) {
             console.log(error);
             client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("API foxika nie działa :(");

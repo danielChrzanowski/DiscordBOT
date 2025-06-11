@@ -7,6 +7,7 @@ module.exports = {
         -play, -skip, -stop -> muzyka
         -cat -> losowy koteł
         -doge -> losowy pieseł
+        -summonFox -> przyzywa Foxa
         -dogeCounter -> twój licznik piesełów
         -dogeCounter [użytkownicy] -> licznik piesełów
         -clear <ile> -> kasowanie wiadomości (max: 100 wiadomości, 14 dni wstecz)
