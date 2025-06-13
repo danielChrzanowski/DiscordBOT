@@ -1,10 +1,10 @@
-import { Interaction, ChatInputCommandInteraction, Client } from 'discord.js';
+import { Interaction, ChatInputCommandInteraction, Client, Collection } from 'discord.js';
 
 export default async (interaction: Interaction) => {
     if (!interaction.isChatInputCommand()) return;
 
-    // Upewnij się, że client.commands istnieje i jest typu Collection
-    const client = interaction.client as Client & { commands: Map<string, any> };
+    // Użyj Collection zamiast Map
+    const client = interaction.client as Client & { commands: Collection<string, any> };
     const command = client.commands?.get(interaction.commandName);
 
     if (!command || typeof command.executeSlash !== 'function') {

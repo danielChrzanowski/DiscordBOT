@@ -51,6 +51,7 @@ dotenv.config();
 
 import commandHandler from './handlers/command_handler.js';
 import eventHandler from './handlers/event_handler.js';
+import interactionHandler from './events/interaction.js';
 
 (async () => {
     await commandHandler(client);
@@ -70,5 +71,7 @@ client.on('ready', () => {
     botStatus.execute(client);
     console.log('Dzieci Neo is online!');
 });
+
+client.on('interactionCreate', interactionHandler);
 
 client.login(process.env.DISCORD_TOKEN);
