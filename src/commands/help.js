@@ -4,7 +4,6 @@ module.exports = {
 
     execute(client, message) {
         message.channel.send(`KOMENDY:
-        -play, -skip, -stop -> muzyka
         -cat -> losowy koteł
         -doge -> losowy pieseł
         -summonFox -> przyzywa Foxa
