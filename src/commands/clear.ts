@@ -35,23 +35,26 @@ export default {
     },
 
     async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
+        await interaction.deferReply();
         if (!interaction.memberPermissions?.has('MoveMembers')) {
-            await interaction.reply({ content: 'Nie masz wystarczających uprawnień', ephemeral: true });
+            await interaction.editReply({ content: 'Nie masz wystarczających uprawnień' });
             return;
         }
         const amount = interaction.options.getInteger('amount', true);
         if (amount > 100 || amount < 1) {
-            await interaction.reply({ content: 'Podaj liczbę od 1 do 100.', ephemeral: true });
+            await interaction.editReply({ content: 'Podaj liczbę od 1 do 100.' });
             return;
         }
         try {
             const channel = interaction.channel as TextChannel;
             const messages = await channel.messages.fetch({ limit: amount + 1 });
             await channel.bulkDelete(messages);
-            await interaction.reply({ content: `Usunięto ${amount} wiadomości.`, ephemeral: true });
+            await interaction.editReply({ content: `Usunięto ${amount} wiadomości.` });
         } catch (error) {
             console.log(error);
-            await interaction.reply({ content: 'Kasowanie wiadomości nie działa :(', ephemeral: true });
+            const logChannel = await client.channels.fetch(process.env.LOG_CHANNEL_ID!);
+            if (logChannel && (logChannel as TextChannel).send) (logChannel as TextChannel).send('Kasowanie wiadomości nie działa :(');
+            await interaction.editReply({ content: 'siem coś popsuło, abo co :(' });
         }
     }
 };

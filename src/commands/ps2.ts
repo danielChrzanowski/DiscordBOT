@@ -87,6 +87,7 @@ export default {
     },
 
     async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
+        await interaction.deferReply();
         const { default: fetch } = await import('node-fetch');
         const nick = interaction.options.getString('nick');
         try {
@@ -95,14 +96,14 @@ export default {
                     .then((response: any) => response.json())
                     .then((data: any) => {
                         if (data.returned == 0) {
-                            interaction.reply({ content: `Nie ma gracza o nicku \"${nick}\"`, ephemeral: true });
+                            interaction.editReply({ content: `Nie ma gracza o nicku \"${nick}\"` });
                             return;
                         } else {
                             const playerName = data.character_list[0].name.first;
                             const certs = data.character_list[0].certs.available_points;
                             const lastLoginDate = data.character_list[0].times.last_login_date;
                             const lastSaveDate = data.character_list[0].times.last_save_date;
-                            interaction.reply({ content: `Gracz: \"${playerName}\"\nCerty: ${certs}\nOstatnie logowanie: ${lastLoginDate}\nOstatni save: ${lastSaveDate}` });
+                            interaction.editReply({ content: `Gracz: \"${playerName}\"\nCerty: ${certs}\nOstatnie logowanie: ${lastLoginDate}\nOstatni save: ${lastSaveDate}` });
                         }
                     });
             } else {
@@ -149,13 +150,13 @@ export default {
                 };
                 const encodedChart = encodeURIComponent(JSON.stringify(chart));
                 const chartUrl = `https://quickchart.io/chart?c=${encodedChart}`;
-                interaction.reply({ content: chartUrl });
+                interaction.editReply({ content: chartUrl });
             }
         } catch (error) {
             console.log(error);
             const logChannel = await client.channels.fetch(process.env.LOG_CHANNEL_ID!);
             if (logChannel && (logChannel as TextChannel).send) (logChannel as TextChannel).send("PS2 nie działa :(");
-            interaction.reply({ content: "nie ma wykresu, bo API nie działa :(", ephemeral: true });
+            interaction.editReply({ content: "nie ma wykresu, bo API nie działa :(" });
         }
     }
 };

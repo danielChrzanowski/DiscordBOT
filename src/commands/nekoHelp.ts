@@ -15,10 +15,10 @@ export default {
     },
 
     async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
+        await interaction.deferReply();
         const nekoParameters = globalVariables.execute("nekoParameters");
-        await interaction.reply({
-            content: `PARAMETRY NEKO: ${nekoParameters.join(', ')}`,
-            ephemeral: true
+        await interaction.editReply({
+            content: `PARAMETRY NEKO: ${nekoParameters.join(', ')}`
         });
     }
 };

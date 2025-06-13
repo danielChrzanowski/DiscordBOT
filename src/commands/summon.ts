@@ -44,10 +44,11 @@ export default {
     },
 
     async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
+        await interaction.deferReply();
         const reactions = globalVariables.execute("cuteReactions");
         const user = interaction.options.getUser('user');
         if (!user) {
-            await interaction.reply({ content: 'Musisz podać użytkownika do przyzwania', ephemeral: true });
+            await interaction.editReply({ content: 'Musisz podać użytkownika do przyzwania' });
             return;
         }
         const mention = `<@${user.id}>`;

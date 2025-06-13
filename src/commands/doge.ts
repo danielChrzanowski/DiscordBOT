@@ -19,12 +19,13 @@ export default {
     },
 
     async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
+        await interaction.deferReply();
         const { default: fetch } = await import('node-fetch');
         try {
             const { url } = await fetch('https://random.dog/woof.json').then((response: any) => response.json());
-            await interaction.reply({ content: url });
+            await interaction.editReply({ content: url });
         } catch (error) {
-            await interaction.reply({ content: "nie ma pieseła, bo API nie działa :(", ephemeral: true });
+            await interaction.editReply({ content: "nie ma pieseła, bo API nie działa :(" });
         }
     }
 };

@@ -53,8 +53,9 @@ export default {
     },
 
     async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
+        await interaction.deferReply();
         if (!interaction.memberPermissions?.has('MoveMembers')) {
-            await interaction.reply({ content: 'Nie masz wystarczających uprawnień', ephemeral: true });
+            await interaction.editReply({ content: 'Nie masz wystarczających uprawnień' });
             return;
         }
         const user = interaction.options.getUser('user');

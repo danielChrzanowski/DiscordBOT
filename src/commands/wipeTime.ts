@@ -28,10 +28,11 @@ export default {
     },
 
     async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
+        await interaction.deferReply();
         const roleId = '1348017014869987469';
         try {
             const randomImage = `${random.execute(0, 7)}.jpg`;
-            await interaction.reply({
+            await interaction.editReply({
                 content: `<@&${roleId}> It's WIPE TIME! <:catNooo:777774153402679308>`,
                 files: [{ attachment: `./src/assets/bns/${randomImage}` }]
             });
@@ -39,7 +40,7 @@ export default {
             console.error(error);
             const logChannel = await client.channels.fetch(process.env.LOG_CHANNEL_ID!);
             if (logChannel && (logChannel as TextChannel).send) (logChannel as TextChannel).send("-wipeTime nie działa :(");
-            interaction.reply({ content: "Nie ma, bo się obrazek wywalił :(", ephemeral: true });
+            await interaction.editReply({ content: "Nie ma, bo się obrazek wywalił :(" });
         }
     }
 };

@@ -34,6 +34,7 @@ export default {
     },
 
     async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
+        await interaction.deferReply();
         const { default: fetch } = await import('node-fetch');
         try {
             const imaginaryFoxId = '<@337220705252802571>';
@@ -45,7 +46,7 @@ export default {
             const embed = new EmbedBuilder()
                 .setImage(url)
                 .setColor('#e67e22');
-            await interaction.reply({
+            await interaction.editReply({
                 content: `Summon ${imaginaryFoxId} <:catNooo:777774153402679308>`,
                 embeds: [embed]
             });
@@ -53,7 +54,7 @@ export default {
             console.log(error);
             const logChannel = await client.channels.fetch(process.env.LOG_CHANNEL_ID!);
             if (logChannel && (logChannel as TextChannel).send) (logChannel as TextChannel).send("API foxika nie działa :(");
-            interaction.reply({ content: "nie ma foxika, bo API nie działa :(", ephemeral: true });
+            await interaction.editReply({ content: "nie ma foxika, bo API nie działa :(" });
         }
     }
 };

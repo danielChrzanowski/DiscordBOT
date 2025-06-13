@@ -27,17 +27,18 @@ export default {
     },
 
     async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
+        await interaction.deferReply();
         const roleId = '1348065128117178368';
         const images = ['druzynaOgniowa.png', 'druzynaOgniowa2.png'];
         try {
             const randomImage = images[random.execute(0, images.length - 1)];
-            await interaction.reply({
+            await interaction.editReply({
                 content: `<@&${roleId}> Gramy w grę REEEEEE <:catNooo:777774153402679308>`,
                 files: [`./src/assets/destiny/${randomImage}`]
             });
         } catch (error) {
             console.error(error);
-            await interaction.reply({ content: '-druzynaOgniowa nie działa :(', ephemeral: true });
+            await interaction.editReply({ content: '-druzynaOgniowa nie działa :(' });
         }
     }
 };
