@@ -1,7 +1,7 @@
 //EXPRESS
 const express = require('express');
 const server = express();
-const fetch = require('node-fetch');
+const fetch = (...args) => import('node-fetch').then(mod => mod.default(...args));
 
 let i = 1;
 server.use((req, res) => {

@@ -1,10 +1,10 @@
-const fetch = require('node-fetch');
-
 module.exports = {
     name: 'ps2',
     description: 'Prints PlanetSide 2 Miller population',
 
     async execute(client, message, args) {
+        const { default: fetch } = await import('node-fetch');
+
         try {
             if (args[0] != null) {
                 await fetch('https://census.daybreakgames.com/get/ps2:v2/character/?name.first_lower=' + args[0].toLowerCase())

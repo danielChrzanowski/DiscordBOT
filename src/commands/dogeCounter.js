@@ -1,26 +1,24 @@
-const firebase = require('../firebase/firebaseHandler.js');
-const getRandom = require('../addons/random.js');
-const globalVariables = require('../addons/globalVariables.js');
-
 module.exports = {
     name: 'dogecounter',
     description: 'Prints dogeCounter',
 
     async execute(client, message, args) {
+        const firebase = await import('../firebase/firebaseHandler.js');
+        const { default: getRandom } = await import('../addons/random.js');
+        const { default: globalVariables } = await import('../addons/globalVariables.js');
         const reactions = globalVariables.execute("cuteReactions");
-        const targets = message.mentions.users;
+        const targets = message.mentions.members;
 
         try {
             let msg;
 
             if (args.length > 0) {
-                for (let user of targets) {
-                    let memberTarget = message.guild.members.cache.get(user[1].id);
-                    let nickname = memberTarget.nickname ? memberTarget.nickname : memberTarget.user.username;
-                    msg = await message.reply("Doge counter użytkownika \"" + nickname + "\" to: " + await firebase.execute("getDogeCounter", memberTarget.user.id));
+                for (let [, memberTarget] of targets) {
+                    let displayName = memberTarget.displayName;
+                    msg = await message.reply("Doge counter użytkownika \"" + displayName + "\" to: " + await firebase.default.execute("getDogeCounter", memberTarget.user.id));
                 }
             } else {
-                msg = await message.reply("Twój doge counter: " + await firebase.execute("getDogeCounter", message.author.id));
+                msg = await message.reply("Twój doge counter: " + await firebase.default.execute("getDogeCounter", message.author.id));
             }
 
             const i = getRandom.execute(0, reactions.length - 1);

@@ -1,12 +1,11 @@
-const fetch = require('node-fetch');
-const getRandom = require('../addons/random.js');
-const globalVariables = require('../addons/globalVariables.js');
-
 module.exports = {
     name: 'cat',
     description: 'Prints random cat',
 
     async execute(client, message) {
+        const { default: fetch } = await import('node-fetch');
+        const { default: getRandom } = await import('../addons/random.js');
+        const { default: globalVariables } = await import('../addons/globalVariables.js');
         const reactions = globalVariables.execute("cuteReactions");
 
         try {

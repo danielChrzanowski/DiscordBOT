@@ -1,11 +1,11 @@
-const fetch = require('node-fetch');
-const { EmbedBuilder } = require('discord.js');
-
 module.exports = {
     name: 'summonfox',
     description: 'Summons The Fox',
 
     async execute(client, message) {
+        const { default: fetch } = await import('node-fetch');
+        const { EmbedBuilder } = await import('discord.js');
+
         try {
             const imaginaryFoxId = '<@337220705252802571>';
             let url;

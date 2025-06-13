@@ -1,13 +1,12 @@
-const fetch = require('node-fetch');
-const getRandom = require('../addons/random.js');
-const globalVariables = require('../addons/globalVariables.js');
-const nekoHelp = require('./nekoHelp.js');
-
 module.exports = {
     name: 'neko',
     description: 'Prints neko (accepts parameter)',
 
     async execute(client, message, args) {
+        const { default: fetch } = await import('node-fetch');
+        const { default: getRandom } = await import('../addons/random.js');
+        const { default: globalVariables } = await import('../addons/globalVariables.js');
+        const nekoHelp = await import('./nekoHelp.js');
         const parameters = globalVariables.execute('nekoParameters');
         const NSWParameters = ['explicit'];
 
