@@ -25,7 +25,8 @@ module.exports = {
             msg.react('<:chibiFox:474699471670738954>');
         } catch (error) {
             console.log(error);
-            client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("API foxika nie działa :(");
+            const logChannel = await client.channels.fetch(process.env.LOG_CHANNEL_ID);
+            if (logChannel) logChannel.send("API foxika nie działa :(");
             message.reply("nie ma foxika, bo API nie działa :(");
         }
     }

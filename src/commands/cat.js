@@ -20,7 +20,8 @@ module.exports = {
                 });
         } catch (error) {
             console.log(error);
-            client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("API koteła nie działa :(");
+            const logChannel = await client.channels.fetch(process.env.LOG_CHANNEL_ID);
+            if (logChannel) logChannel.send("API koteła nie działa :(");
             message.reply("nie ma koteła, bo API nie działa :(");
         }
     }

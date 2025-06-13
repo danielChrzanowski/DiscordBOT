@@ -4,7 +4,7 @@ module.exports = {
     name: 'druzynaogniowa',
     description: 'Calls for Destiny 2 role',
 
-    execute(client, message) {
+    async execute(client, message) {
         const roleId = '1348065128117178368';
         const images = ['druzynaOgniowa.png', 'druzynaOgniowa2.png'];
 
@@ -17,10 +17,8 @@ module.exports = {
             });
         } catch (error) {
             console.error(error);
-
-            const logChannel = client.channels.cache.get(process.env.LOG_CHANNEL_ID);
+            const logChannel = await client.channels.fetch(process.env.LOG_CHANNEL_ID);
             if (logChannel) logChannel.send("-druzynaOgniowa nie działa :(");
-
             message.reply("Nie ma, bo się obrazek wywalił :(");
         }
     }

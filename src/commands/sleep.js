@@ -2,7 +2,7 @@ module.exports = {
     name: 'sleep',
     description: 'Disconnects voice channel users',
 
-    execute(client, message, args) {
+    async execute(client, message, args) {
         if (!args.length) return message.reply('musisz podać użytkowników do uspania');
         if (!message.member.permissions.has('MoveMembers')) return message.reply('Nie masz wystarczających uprawnień');
 
@@ -10,13 +10,14 @@ module.exports = {
         var rand;
 
         if (targets) {
-            targets.forEach(user => {
+            for (const user of targets.values()) {
                 if (user.id == 823862166850502657) {
                     message.reply('jak śmiesz próbować mnie kickować <:pathetic:776129039688663061>');
 
                 } else {
-                    let memberTarget = message.guild.members.cache.get(user.id);
-                    if (memberTarget.voice.channel) {
+                    let memberTarget = await message.guild.members.fetch(user.id);
+                    // Poprawka: sprawdzamy channelId zamiast channel
+                    if (memberTarget.voice && memberTarget.voice.channelId) {
                         rand = getRandomInt(0, 3);
 
                         switch (rand) {
@@ -40,7 +41,7 @@ module.exports = {
                     }
 
                 }
-            });
+            }
 
         }
     }

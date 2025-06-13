@@ -18,7 +18,8 @@ module.exports = {
             });
         } catch (error) {
             console.log(error);
-            client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("Kasowanie wiadomości nie działa :(");
+            const logChannel = await client.channels.fetch(process.env.LOG_CHANNEL_ID);
+            if (logChannel) logChannel.send("Kasowanie wiadomości nie działa :(");
             message.reply("siem coś popsuło, abo co :(");
         }
     }

@@ -4,7 +4,7 @@ module.exports = {
     name: 'wipetime',
     description: 'Calls for BnS role',
 
-    execute(client, message) {
+    async execute(client, message) {
         const roleId = '1348017014869987469';
 
         try {
@@ -16,10 +16,8 @@ module.exports = {
             });
         } catch (error) {
             console.error(error);
-
-            const logChannel = client.channels.cache.get(process.env.LOG_CHANNEL_ID);
+            const logChannel = await client.channels.fetch(process.env.LOG_CHANNEL_ID);
             if (logChannel) logChannel.send("-wipeTime nie działa :(");
-
             message.reply("Nie ma, bo się obrazek wywalił :(");
         }
     }

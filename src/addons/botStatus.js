@@ -31,13 +31,16 @@ module.exports = {
         function setBotUsernameAndActivity() {
             const { name, activity, type } = botStatuses[randomStatus];
 
-            try {
-                client.user.setUsername(name);
-                client.user.setActivity(activity, { type });
-            } catch (error) {
-                console.log(error);
-                client.channels.cache.get(process.env.LOG_CHANNEL_ID).send(error);
-            };
+            (async () => {
+                try {
+                    client.user.setUsername(name);
+                    client.user.setActivity(activity, { type });
+                } catch (error) {
+                    console.log(error);
+                    const logChannel = await client.channels.fetch(process.env.LOG_CHANNEL_ID);
+                    if (logChannel) logChannel.send(error);
+                }
+            })();
         }
 
         function resetRandomStatus() {

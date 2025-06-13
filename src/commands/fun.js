@@ -2,7 +2,7 @@ module.exports = {
     name: 'fun',
     description: 'Shows fun photo',
 
-    execute(client, message) {
+    async execute(client, message) {
         try {
             message.channel.send({
                 content: `Fun <:uganda:783095652212670514>`,
@@ -10,7 +10,8 @@ module.exports = {
             });
         } catch (error) {
             console.log(error);
-            client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("Fun nie działa :(");
+            const logChannel = await client.channels.fetch(process.env.LOG_CHANNEL_ID);
+            if (logChannel) logChannel.send("Fun nie działa :(");
             message.reply("nie ma, bo sie obrazek wywalił :(");
         }
     }

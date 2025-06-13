@@ -44,7 +44,8 @@ module.exports = {
             return msg.react(reactions[randomReactionIndex]);
         } catch (error) {
             console.log(error);
-            client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("API neko nie działa :(");
+            const logChannel = await client.channels.fetch(process.env.LOG_CHANNEL_ID);
+            if (logChannel) logChannel.send("API neko nie działa :(");
             message.reply("nie ma neko, bo API nie działa, albo podano zły parametr :(");
             return nekoHelp.execute(client, message);
         }
