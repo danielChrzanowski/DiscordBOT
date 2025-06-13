@@ -4,7 +4,7 @@ module.exports = {
 
     //You can't delete posts older than 14 days
     async execute(client, message, args) {
-        if (!message.member.hasPermission("MOVE_MEMBERS")) return message.reply('Nie masz wystarczających uprawnień');
+        if (!message.member.permissions.has('MoveMembers')) return message.reply('Nie masz wystarczających uprawnień');
         if (!args[0]) return message.reply("podaj liczbę wiadomości do skasowania");
         if (isNaN(args[0])) return message.reply("musisz podać LICZBĘ w argumencie");
         if (args[0] > 100) return message.reply("chill mon, maksymalnie możesz usunąć 100 wiadomości na raz");

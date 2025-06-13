@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-const Discord = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
     name: 'summonfox',
@@ -14,13 +14,13 @@ module.exports = {
                 .then(response => response.json())
                 .then(data => url = data.image);
 
-            const embed = new Discord.MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setImage(url)
                 .setColor('#e67e22');
-            const msg = await message.channel.send(
-                `Summon ${imaginaryFoxId} <:catNooo:777774153402679308>`,
-                embed
-            );
+            const msg = await message.channel.send({
+                content: `Summon ${imaginaryFoxId} <:catNooo:777774153402679308>`,
+                embeds: [embed]
+            });
 
             msg.react('<:chibiFox:474699471670738954>');
         } catch (error) {

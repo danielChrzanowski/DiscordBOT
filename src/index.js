@@ -24,17 +24,25 @@ setInterval(async () => {
 
 
 //DISCORD
-const Discord = require('discord.js');
+const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const botStatus = require('./addons/botStatus.js');
-const client = new Discord.Client();
+const client = new Client({
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildMessageReactions,
+        GatewayIntentBits.GuildMembers
+    ]
+});
 const firebaseAdmin = require("firebase-admin");
 require('dotenv').config();
 
-client.commands = new Discord.Collection();
-client.events = new Discord.Collection();
+client.commands = new Collection();
+client.events = new Collection();
 
 ['command_handler', 'event_handler'].forEach(handler => {
-    require(`./handlers/${handler}`)(client, Discord);
+    require(`./handlers/${handler}`)(client);
 });
 
 client.on('ready', () => {
@@ -49,6 +57,13 @@ client.on('ready', () => {
 
     botStatus.execute(client);
     console.log('Dzieci Neo is online!');
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection:', reason);
+});
+process.on('uncaughtException', (err) => {
+    console.error('Uncaught Exception:', err);
 });
 
 client.login(process.env.DISCORD_TOKEN);

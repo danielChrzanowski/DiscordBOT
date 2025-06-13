@@ -4,8 +4,10 @@ module.exports = {
 
     execute(client, message) {
         try {
-            message.channel.send(`Fun <:uganda:783095652212670514>`,
-                { files: ["./src/assets/destiny/fun.png"] });
+            message.channel.send({
+                content: `Fun <:uganda:783095652212670514>`,
+                files: ["./src/assets/destiny/fun.png"]
+            });
         } catch (error) {
             console.log(error);
             client.channels.cache.get(process.env.LOG_CHANNEL_ID).send("Fun nie działa :(");

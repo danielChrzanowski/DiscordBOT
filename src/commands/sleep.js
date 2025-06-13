@@ -4,7 +4,7 @@ module.exports = {
 
     execute(client, message, args) {
         if (!args.length) return message.reply('musisz podać użytkowników do uspania');
-        if (!message.member.hasPermission("MOVE_MEMBERS")) return message.reply('Nie masz wystarczających uprawnień');
+        if (!message.member.permissions.has('MoveMembers')) return message.reply('Nie masz wystarczających uprawnień');
 
         const targets = message.mentions.users;
         var rand;
