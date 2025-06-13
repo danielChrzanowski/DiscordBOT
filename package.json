@@ -5,8 +5,10 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "start": "npm run build && node dist/index.js",
-    "build": "tsc",
+    "clean": "rimraf dist",
+    "build": "npm run clean && tsc",
+    "register-commands": "node dist/registerCommands.js",
+    "start": "npm run build && npm run register-commands && node dist/index.js",
     "dev": "ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

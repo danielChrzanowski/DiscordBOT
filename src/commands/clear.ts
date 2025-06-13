@@ -1,4 +1,13 @@
-import { Client, Message, TextChannel } from 'discord.js';
+import { Client, Message, TextChannel, ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+
+export const slash = new SlashCommandBuilder()
+    .setName('clear')
+    .setDescription('Clears chat messages')
+    .addIntegerOption(option =>
+        option.setName('amount')
+            .setDescription('Number of messages to delete (max 100)')
+            .setRequired(true)
+    );
 
 export default {
     name: 'clear',
@@ -22,6 +31,27 @@ export default {
             const logChannel = await client.channels.fetch(process.env.LOG_CHANNEL_ID!);
             if (logChannel && (logChannel as TextChannel).send) (logChannel as TextChannel).send("Kasowanie wiadomości nie działa :(");
             message.reply("siem coś popsuło, abo co :(");
+        }
+    },
+
+    async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
+        if (!interaction.memberPermissions?.has('MoveMembers')) {
+            await interaction.reply({ content: 'Nie masz wystarczających uprawnień', ephemeral: true });
+            return;
+        }
+        const amount = interaction.options.getInteger('amount', true);
+        if (amount > 100 || amount < 1) {
+            await interaction.reply({ content: 'Podaj liczbę od 1 do 100.', ephemeral: true });
+            return;
+        }
+        try {
+            const channel = interaction.channel as TextChannel;
+            const messages = await channel.messages.fetch({ limit: amount + 1 });
+            await channel.bulkDelete(messages);
+            await interaction.reply({ content: `Usunięto ${amount} wiadomości.`, ephemeral: true });
+        } catch (error) {
+            console.log(error);
+            await interaction.reply({ content: 'Kasowanie wiadomości nie działa :(', ephemeral: true });
         }
     }
 };

@@ -1,4 +1,13 @@
-import { Client, Message, TextChannel, GuildMember } from 'discord.js';
+import { Client, Message, TextChannel, GuildMember, ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+
+export const slash = new SlashCommandBuilder()
+    .setName('dogecounter')
+    .setDescription('Prints dogeCounter')
+    .addUserOption(option =>
+        option.setName('user')
+            .setDescription('User to check doge counter')
+            .setRequired(false)
+    );
 
 export default {
     name: 'dogecounter',
@@ -29,6 +38,28 @@ export default {
             const logChannel = await client.channels.fetch(process.env.LOG_CHANNEL_ID!);
             if (logChannel && (logChannel as TextChannel).send) (logChannel as TextChannel).send("Baza danych firebase nie działa :(");
             message.reply("podano złe parametry albo baza danych płonie :(");
+        }
+    },
+
+    async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
+        const firebase = await import('../firebase/firebaseHandler.js');
+        const { default: getRandom } = await import('../addons/random.js');
+        const { default: globalVariables } = await import('../addons/globalVariables.js');
+        const reactions = globalVariables.execute("cuteReactions");
+        const user = interaction.options.getUser('user');
+        try {
+            let msg;
+            if (user) {
+                const dogeCount = await firebase.default.execute("getDogeCounter", user.id, user.username);
+                msg = await interaction.reply({ content: `Doge counter użytkownika "${user.username}" to: ${dogeCount}` });
+            } else {
+                const dogeCount = await firebase.default.execute("getDogeCounter", interaction.user.id, interaction.user.username);
+                msg = await interaction.reply({ content: `Twój doge counter: ${dogeCount}` });
+            }
+            // Nie można dodać reakcji do interaction.reply
+        } catch (error) {
+            console.log(error);
+            await interaction.reply({ content: 'Baza danych firebase nie działa :(', ephemeral: true });
         }
     }
 };
