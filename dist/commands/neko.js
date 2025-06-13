@@ -1,0 +1,3 @@
+export {};
+// Converted from neko.js to TypeScript
+// ...existing code from neko.js will be migrated here...
