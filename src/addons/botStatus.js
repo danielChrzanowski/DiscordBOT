@@ -11,16 +11,17 @@ module.exports = {
             { name: "MENADŻERKINIA", activity: "stópki Flory", type: "WATCHING" },
             { name: "Jinxie <3", activity: "zdjęcia piesków", type: "WATCHING" },
             { name: "Syn Foxa", activity: "TOP 1 DPS", type: "COMPETING" },
-            { name: "Najlepszy BOT", activity: "Blade & Soul", type: "PLAYING" },
-            { name: "Hehe", activity: "jak trawa rośnie", type: "LISTENING" }
+            { name: "What is life?", activity: "Blade & Soul", type: "PLAYING" },
+            { name: "Se Pacze", activity: "jak trawa rośnie", type: "LISTENING" }
         ];
+        const updateTime = 3600000 * 3;
 
         let randomStatus;
         let previousStatus;
 
         setInterval(() => {
             updateBotStatus();
-        }, 3600000);
+        }, updateTime);
 
         function updateBotStatus() {
             resetRandomStatus();
