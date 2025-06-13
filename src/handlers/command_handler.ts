@@ -16,8 +16,7 @@ export default async (client: Client) => {
         const command = commandModule.default || commandModule;
         if (command.name) {
             (client as any).commands.set(command.name.toLowerCase(), command);
-            console.log(`Załadowano komendę: ${command.name}`);
         }
     }
-    console.log('Wszystkie komendy:', Array.from((client as any).commands.keys()));
+    console.log('Loaded commands:', Array.from((client as any).commands.keys()));
 };
