@@ -1,14 +1,14 @@
-import { Client, GatewayIntentBits, Collection } from 'discord.js';
-import firebaseAdmin from 'firebase-admin';
+import { Client, Collection, GatewayIntentBits } from 'discord.js';
 import dotenv from 'dotenv';
-import botStatus from './addons/botStatus.js';
-import commandHandler from './handlers/command_handler.js';
-import eventHandler from './handlers/event_handler.js';
-import interactionHandler from './events/interaction.js';
+import firebaseAdmin from 'firebase-admin';
+import botStatus from './addons/bot-status.js';
+import commandHandler from './handlers/command-handler.js';
+import eventHandler from './handlers/event-handler.js';
+import interactionHandler from './handlers/interaction-handler.js';
+import { startPingServer } from './ping-server.js';
 
 dotenv.config();
 
-// Rozszerzenie typu klienta o commands/events
 interface CustomClient extends Client {
   commands: Collection<string, any>;
   events: Collection<string, any>;
@@ -30,10 +30,11 @@ client.events = new Collection();
 
 async function startBot() {
   await commandHandler(client);
-  await eventHandler(client);
+  eventHandler(client);
 }
 
 startBot();
+startPingServer();
 
 function initFirebase() {
   firebaseAdmin.initializeApp({

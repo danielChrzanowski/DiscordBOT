@@ -1,4 +1,5 @@
 import { Client, ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { sendMessageToBotLogsChannel } from '../addons/utils.js';
 
 const name = 'fun';
 const description = 'Shows fun photo';
@@ -18,8 +19,14 @@ export default {
                 files: ["./src/assets/destiny/fun.png"]
             });
         } catch (error) {
-            console.log(error);
-            await interaction.editReply({ content: 'Fun nie działa :(' });
+            console.error(error);
+            sendMessageToBotLogsChannel(client, `Komenda '${name}' nie działa. Error: ${error}`);
+
+            if (interaction.deferred || interaction.replied) {
+                interaction.editReply({ content: 'Siem obrazki popsuły :(' });
+            } else {
+                interaction.reply({ content: 'Siem obrazki popsuły :(' });
+            }
         }
     },
 };

@@ -1,4 +1,5 @@
 import { Client, ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { sendMessageToBotLogsChannel } from '../addons/utils.js';
 
 const name = 'ps2';
 const description = 'Prints PlanetSide 2 Miller population';
@@ -17,7 +18,6 @@ export default {
     slashCommandBuilder,
     async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
         await interaction.deferReply();
-        const { default: fetch } = await import('node-fetch');
         const nick = interaction.options.getString('nick');
         try {
             if (nick) {
@@ -32,10 +32,12 @@ export default {
                             const certs = data.character_list[0].certs.available_points;
                             const lastLoginDate = data.character_list[0].times.last_login_date;
                             const lastSaveDate = data.character_list[0].times.last_save_date;
-                            interaction.editReply({ content: `Gracz: "${playerName}"
-Certy: ${certs}
-Ostatnie logowanie: ${lastLoginDate}
-Ostatni save: ${lastSaveDate}` });
+                            interaction.editReply({
+                                content: `Gracz: "${playerName}"
+                                Certy: ${certs}
+                                Ostatnie logowanie: ${lastLoginDate}
+                                Ostatni save: ${lastSaveDate}`
+                            });
                         }
                     });
             } else {
@@ -85,10 +87,14 @@ Ostatni save: ${lastSaveDate}` });
                 interaction.editReply({ content: chartUrl });
             }
         } catch (error) {
-            console.log(error);
-            const logChannel = await client.channels.fetch(process.env.LOG_CHANNEL_ID!);
-            if (logChannel && (logChannel as any).send) (logChannel as any).send("PS2 nie działa :(");
-            interaction.editReply({ content: "nie ma wykresu, bo API nie działa :(" });
+            console.error(error);
+            sendMessageToBotLogsChannel(client, `Komenda '${name}' nie działa. Error: ${error}`);
+
+            if (interaction.deferred || interaction.replied) {
+                interaction.editReply({ content: 'Nie ma wykresu, bo API nie działa  :(' });
+            } else {
+                interaction.reply({ content: 'Nie ma wykresu, bo API nie działa  :(' });
+            }
         }
     },
 };

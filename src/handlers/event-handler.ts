@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default (client: Client) => {
-    const eventsPath = path.join(__dirname, '../events');
+    const eventsPath = path.join(__dirname, '../handlers');
     const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.ts') || file.endsWith('.js'));
 
     for (const file of eventFiles) {

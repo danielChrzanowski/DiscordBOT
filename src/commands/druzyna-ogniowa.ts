@@ -1,4 +1,5 @@
 import { Client, ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { sendMessageToBotLogsChannel } from '../addons/utils.js';
 
 const name = 'druzynaogniowa';
 const description = 'Calls for Destiny 2 role';
@@ -22,7 +23,13 @@ export default {
             });
         } catch (error) {
             console.error(error);
-            await interaction.editReply({ content: '-druzynaOgniowa nie działa :(' });
+            sendMessageToBotLogsChannel(client, `Komenda '${name}' nie działa. Error: ${error}`);
+
+            if (interaction.deferred || interaction.replied) {
+                interaction.editReply({ content: 'Siem obrazki popsuły :(' });
+            } else {
+                interaction.reply({ content: 'Siem obrazki popsuły :(' });
+            }
         }
     },
 };

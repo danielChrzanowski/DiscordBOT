@@ -2,19 +2,18 @@ import { REST, Routes } from 'discord.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
-// Importuj domyślne eksporty wszystkich komend
 import clearCommand from './commands/clear.js';
 import dogeCommand from './commands/doge.js';
-import dogecounterCommand from './commands/dogeCounter.js';
-import druzynaogniowaCommand from './commands/druzynaOgniowa.js';
+import dogecounterCommand from './commands/doge-counter.js';
+import druzynaogniowaCommand from './commands/druzyna-ogniowa.js';
 import funCommand from './commands/fun.js';
 import helpCommand from './commands/help.js';
-import nekohelpCommand from './commands/nekoHelp.js';
+import neko from './commands/neko.js';
 import ps2Command from './commands/ps2.js';
 import sleepCommand from './commands/sleep.js';
 import summonCommand from './commands/summon.js';
-import summonfoxCommand from './commands/summonFox.js';
-import wipetimeCommand from './commands/wipeTime.js';
+import summonfoxCommand from './commands/summon-fox.js';
+import wipetimeCommand from './commands/wipe-time.js';
 import catCommand from './commands/cat.js';
 
 const commands = [
@@ -24,7 +23,7 @@ const commands = [
     druzynaogniowaCommand,
     funCommand,
     helpCommand,
-    nekohelpCommand,
+    neko,
     ps2Command,
     sleepCommand,
     summonCommand,

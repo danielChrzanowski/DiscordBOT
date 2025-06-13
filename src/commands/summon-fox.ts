@@ -1,4 +1,5 @@
 import { Client, ChatInputCommandInteraction, SlashCommandBuilder, EmbedBuilder } from 'discord.js';
+import { sendMessageToBotLogsChannel } from '../addons/utils.js';
 
 const name = 'summonfox';
 const description = 'Summons The Fox';
@@ -12,7 +13,6 @@ export default {
     slashCommandBuilder,
     async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
         await interaction.deferReply();
-        const { default: fetch } = await import('node-fetch');
         try {
             const imaginaryFoxId = '<@337220705252802571>';
             let url: string = '';
@@ -28,10 +28,14 @@ export default {
                 embeds: [embed]
             });
         } catch (error) {
-            console.log(error);
-            const logChannel = await client.channels.fetch(process.env.LOG_CHANNEL_ID!);
-            if (logChannel && (logChannel as any).send) (logChannel as any).send("API foxika nie działa :(");
-            await interaction.editReply({ content: "nie ma foxika, bo API nie działa :(" });
+            console.error(error);
+            sendMessageToBotLogsChannel(client, `Komenda '${name}' nie działa. Error: ${error}`);
+
+            if (interaction.deferred || interaction.replied) {
+                interaction.editReply({ content: 'Nie ma foxika, bo API nie działa :(' });
+            } else {
+                interaction.reply({ content: 'Nie ma foxika, bo API nie działa :(' });
+            }
         }
     },
 };
