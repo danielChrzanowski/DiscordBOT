@@ -14,14 +14,18 @@ export function startPingServer() {
 
     const PORT = process.env.PORT || 3000;
     server.listen(PORT, () => {
-        console.log(`Ping server listening on http://localhost:${PORT}`);
+        console.log(`Ping server is listening on: http://localhost:${PORT}`);
     });
 
     setInterval(async () => {
-        await fetch('https://dzieci-neo-gzr5.onrender.com');
-        console.log(`Ping: ${pingId++}`);
-        if (pingId >= 1000) {
-            pingId = 1;
+        try {
+            await fetch('https://dzieci-neo-gzr5.onrender.com');
+            console.log(`Ping: ${pingId++}`);
+            if (pingId >= 1000) {
+                pingId = 1;
+            }
+        } catch (error) {
+            console.error('Error pinging server:', error);
         }
     }, 30_000);
 }

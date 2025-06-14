@@ -1,20 +1,20 @@
 import { REST, Routes } from 'discord.js';
 import dotenv from 'dotenv';
-dotenv.config();
+import catCommand from '../commands/cat.js';
+import clearCommand from '../commands/clear.js';
+import dogecounterCommand from '../commands/doge-counter.js';
+import dogeCommand from '../commands/doge.js';
+import druzynaogniowaCommand from '../commands/druzyna-ogniowa.js';
+import funCommand from '../commands/fun.js';
+import helpCommand from '../commands/help.js';
+import neko from '../commands/neko.js';
+import ps2Command from '../commands/ps2.js';
+import sleepCommand from '../commands/sleep.js';
+import summonfoxCommand from '../commands/summon-fox.js';
+import summonCommand from '../commands/summon.js';
+import wipetimeCommand from '../commands/wipe-time.js';
 
-import clearCommand from './commands/clear.js';
-import dogeCommand from './commands/doge.js';
-import dogecounterCommand from './commands/doge-counter.js';
-import druzynaogniowaCommand from './commands/druzyna-ogniowa.js';
-import funCommand from './commands/fun.js';
-import helpCommand from './commands/help.js';
-import neko from './commands/neko.js';
-import ps2Command from './commands/ps2.js';
-import sleepCommand from './commands/sleep.js';
-import summonCommand from './commands/summon.js';
-import summonfoxCommand from './commands/summon-fox.js';
-import wipetimeCommand from './commands/wipe-time.js';
-import catCommand from './commands/cat.js';
+dotenv.config();
 
 const commands = [
     clearCommand,
