@@ -1,46 +1,41 @@
 import { REST, Routes } from 'discord.js';
 import dotenv from 'dotenv';
-import catCommand from '../commands/cat.js';
-import clearCommand from '../commands/clear.js';
-import dogecounterCommand from '../commands/doge-counter.js';
-import dogeCommand from '../commands/doge.js';
-import druzynaogniowaCommand from '../commands/druzyna-ogniowa.js';
-import funCommand from '../commands/fun.js';
-import helpCommand from '../commands/help.js';
-import neko from '../commands/neko.js';
-import ps2Command from '../commands/ps2.js';
-import sleepCommand from '../commands/sleep.js';
-import summonfoxCommand from '../commands/summon-fox.js';
-import summonCommand from '../commands/summon.js';
-import wipetimeCommand from '../commands/wipe-time.js';
+import fs from 'fs';
+import path from 'path';
+import { pathToFileURL } from 'url';
 
 dotenv.config();
 
-const commands = [
-    clearCommand,
-    dogeCommand,
-    dogecounterCommand,
-    druzynaogniowaCommand,
-    funCommand,
-    helpCommand,
-    neko,
-    ps2Command,
-    sleepCommand,
-    summonCommand,
-    summonfoxCommand,
-    wipetimeCommand,
-    catCommand,
-].map(cmd => cmd.slashCommandBuilder.toJSON());
+const commandsPath = path.join(process.cwd(), 'dist', 'commands');
+const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
-const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN!);
+async function loadCommands() {
+    const commands = [];
+
+    for (const commandFile of commandFiles) {
+        const commandFilePath = path.join(commandsPath, commandFile);
+
+        const commandModule = await import(pathToFileURL(commandFilePath).href);
+        const command = commandModule.default || commandModule;
+
+        if (command.slashCommandBuilder) {
+            commands.push(command.slashCommandBuilder.toJSON());
+        }
+    }
+
+    return commands;
+}
 
 (async () => {
     try {
         console.log('Started refreshing application (/) commands.');
 
+        const commands = await loadCommands();
+
+        const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN!);
         await rest.put(
             Routes.applicationCommands(process.env.CLIENT_ID!),
-            { body: commands },
+            { body: commands }
         );
 
         console.log('Successfully reloaded application (/) commands.');
