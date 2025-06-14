@@ -14,18 +14,9 @@ const getRandom = (min: number, max: number): number => {
 };
 
 const getInteractionMentionedUsers = (interaction: ChatInputCommandInteraction): string[] => {
-    const input = interaction.options.getString('users')!;
-    const mentions = input.match(/<@!?(\d+)>/g) ?? [];
-
-    const userIds = mentions
-        .map(m => {
-            const match = m.match(/\d+/);
-            return match ? match[0] : null;
-        })
-        .filter((id): id is string => id !== null);
-
-    return userIds;
+    const input = interaction.options.getString('users') ?? '';
+    const matches = [...input.matchAll(/<@!?(\d+)>/g)];
+    return matches.map(m => m[1]);
 };
 
 export { getRandom, sendMessageToBotLogsChannel, getInteractionMentionedUsers };
-

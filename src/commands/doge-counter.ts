@@ -28,7 +28,7 @@ export default {
             const dogeCount = await firebase.default.execute("getDogeCounter", userToCheck.id, userToCheck.username);
 
             if (passedUser) {
-                reply = `Doge counter użytkownika "${passedUser.username}" to: ${dogeCount}`;
+                reply = `Doge counter użytkownika "${passedUser.globalName}" to: ${dogeCount}`;
             } else {
                 reply = `Twój doge counter: ${dogeCount}`;
             }
