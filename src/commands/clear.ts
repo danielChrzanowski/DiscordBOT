@@ -1,5 +1,6 @@
 import { ChatInputCommandInteraction, Client, SlashCommandBuilder, TextChannel } from 'discord.js';
-import { MAX_MESSAGES_TO_DELETE_COUNT, sendMessageToBotLogsChannel } from '../addons/utils.js';
+import { sendMessageToBotLogsChannel } from '../addons/utils.js';
+import { MAX_MESSAGES_TO_DELETE_COUNT } from '../addons/constants.js';
 
 const name = 'clear';
 const description = 'Clears chat messages';

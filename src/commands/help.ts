@@ -1,5 +1,5 @@
-import { Client, ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
-import { MAX_MESSAGES_TO_DELETE_COUNT } from '../addons/utils.js';
+import { ChatInputCommandInteraction, Client, SlashCommandBuilder } from 'discord.js';
+import { MAX_MESSAGES_TO_DELETE_COUNT, MAX_USERS_TO_SLEEP_COUNT, MAX_USERS_TO_SUMMON_COUNT } from '../addons/constants.js';
 
 const name = 'help';
 const description = 'Prints bot commands';
@@ -17,16 +17,16 @@ export default {
             content: `KOMENDY:
             -cat -> losowy koteł
             -clear <ile> -> kasowanie wiadomości (max: ${MAX_MESSAGES_TO_DELETE_COUNT} wiadomości, 14 dni wstecz)
-            -dogeCounter [użytkownik] -> licznik piesełów (opcjonalnie można podać użytkownika)
+            -doge-counter [użytkownik] -> licznik piesełów (opcjonalnie można podać użytkownika do sprawdzenia)
             -doge -> losowy pieseł
-            -druzynaOgniowa -> woła Drużynę Ogniową REEE
+            -druzyna-ogniowa -> woła Drużynę Ogniową REEE
             -fun -> fun :)
-            -neko <argument> -> losowe neko z parametrem
+            -neko <argument> -> losowe neko
             -ps2 [nick] -> populacja PS2 - Miller lub statystyki gracza (jeśli podasz nick w parametrze)
-            -summonFox -> przyzywa Foxa
-            -summon <użytkownicy> -> przyzywa użytkowników
-            -sleep <użytkownicy> -> kick z głosowego
-            -wipeTime -> woła do BnS REEE`,
+            -summon-fox -> przyzywa Foxa
+            -summon <użytkownicy> -> przyzywa użytkowników (max ${MAX_USERS_TO_SUMMON_COUNT})
+            -sleep <użytkownicy> -> kick z głosowego (max ${MAX_USERS_TO_SLEEP_COUNT} użytkowników)
+            -wipe-time -> woła do BnS REEE`,
         });
     },
 };

@@ -1,0 +1,3 @@
+export const MAX_MESSAGES_TO_DELETE_COUNT = 100;
+export const MAX_USERS_TO_SUMMON_COUNT = 3;
+export const MAX_USERS_TO_SLEEP_COUNT = 3;

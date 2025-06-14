@@ -1,12 +1,12 @@
 import { ChatInputCommandInteraction, Client, SlashCommandBuilder, TextChannel } from 'discord.js';
 import { getRandomCuteReaction } from '../addons/reactions.js';
 import { getUserOptions } from '../addons/utils.js';
+import { MAX_USERS_TO_SUMMON_COUNT } from '../addons/constants.js';
 
-const maxUsersToSummonCount = 3;
 const summonCount = 3;
 
 const name = 'summon';
-const description = `Summons tagged users (up to ${maxUsersToSummonCount})`;
+const description = `Summons tagged users (up to ${MAX_USERS_TO_SUMMON_COUNT})`;
 const slashCommandBuilder = new SlashCommandBuilder()
     .setName(name)
     .setDescription(description)
@@ -33,7 +33,7 @@ export default {
     async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
         await interaction.deferReply();
 
-        const users = getUserOptions(interaction, maxUsersToSummonCount);
+        const users = getUserOptions(interaction, MAX_USERS_TO_SUMMON_COUNT);
         if (users.length === 0) {
             await interaction.followUp({ content: 'Nie podano użytkowników' });
             return;

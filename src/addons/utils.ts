@@ -1,7 +1,5 @@
 import { ChatInputCommandInteraction, Client, User } from "discord.js";
 
-export const MAX_MESSAGES_TO_DELETE_COUNT = 100;
-
 let lastSleepResponseIndex = -1;
 
 const sendMessageToBotLogsChannel = async (client: Client, message: string) => {

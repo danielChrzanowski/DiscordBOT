@@ -1,7 +1,6 @@
 import { ChatInputCommandInteraction, Client, SlashCommandBuilder, TextChannel } from "discord.js";
-import { getRandom, getRandomSleepResponse, getUserOptions } from "../addons/utils.js";
-
-const maxUsersToSleepCount = 3;
+import { getRandomSleepResponse, getUserOptions } from "../addons/utils.js";
+import { MAX_USERS_TO_SLEEP_COUNT } from "../addons/constants.js";
 
 const name = 'sleep';
 const description = 'Disconnects voice channel users';
@@ -36,7 +35,7 @@ export default {
             return;
         }
 
-        const userOptions = getUserOptions(interaction, maxUsersToSleepCount);
+        const userOptions = getUserOptions(interaction, MAX_USERS_TO_SLEEP_COUNT);
         if (userOptions.length === 0) {
             await interaction.editReply({ content: 'Nie podałeś żadnych użytkowników do uspania' });
             return;
