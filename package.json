@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "scripts": {
     "clean": "rimraf dist",
-    "build": "npm ci && npm run clean && tsc",
+    "build": "npm run clean && tsc",
     "register-commands": "node dist/handlers/register-commands.js",
     "start": "npm run build && npm run register-commands && node dist/index.js",
     "dev": "ts-node src/index.ts",
