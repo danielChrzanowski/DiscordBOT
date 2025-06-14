@@ -1,7 +1,7 @@
-import { Client, ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
-import { getRandom, sendMessageToBotLogsChannel } from '../addons/utils.js';
+import { ChatInputCommandInteraction, Client, SlashCommandBuilder } from 'discord.js';
 import { readdir } from 'fs/promises';
 import path from 'path';
+import { getRandom, sendMessageToBotLogsChannel } from '../addons/utils.js';
 
 const roleId = '1348017014869987469';
 const imagesFolderPath = './src/assets/bns/';
@@ -31,7 +31,10 @@ export default {
             const randomImage = images[getRandom(0, images.length - 1)];
             await interaction.editReply({
                 content: `<@&${roleId}> It's WIPE TIME! <:catNooo:777774153402679308>`,
-                files: [{ attachment: path.join(imagesFolderPath, randomImage) }]
+                files: [{ attachment: path.join(imagesFolderPath, randomImage) }],
+                allowedMentions: {
+                    roles: [roleId]
+                }
             });
         } catch (error) {
             console.error(error);

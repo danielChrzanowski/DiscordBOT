@@ -31,7 +31,10 @@ export default {
             const randomImage = images[getRandom(0, images.length - 1)];
             await interaction.editReply({
                 content: `<@&${roleId}> Gramy w grę REEEEEE <:catNooo:777774153402679308>`,
-                files: [{ attachment: path.join(imagesFolderPath, randomImage) }]
+                files: [{ attachment: path.join(imagesFolderPath, randomImage) }],
+                allowedMentions: {
+                    roles: [roleId]
+                }
             });
         } catch (error) {
             console.error(error);

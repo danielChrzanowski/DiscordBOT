@@ -74,6 +74,6 @@ export default {
             return;
         }
 
-        interaction.editReply({ content: msgs.join('\n') });
+        await interaction.editReply({ content: msgs.join('\n') });
     }
 };

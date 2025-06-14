@@ -81,7 +81,7 @@ export default {
                 };
                 const encodedChart = encodeURIComponent(JSON.stringify(chart));
                 const chartUrl = `https://quickchart.io/chart?c=${encodedChart}`;
-                interaction.editReply({ content: chartUrl });
+                await interaction.editReply({ content: chartUrl });
             }
         } catch (error) {
             console.error(error);
