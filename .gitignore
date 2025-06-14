@@ -3,3 +3,4 @@ dist
 .env
 help.txt
 src/firebase/service-account-key.json
+.idea

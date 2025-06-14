@@ -1,7 +1,12 @@
 import { Client, ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import { getRandom, sendMessageToBotLogsChannel } from '../addons/utils.js';
+import { readdir } from 'fs/promises';
+import path from 'path';
 
-const name = 'wipetime';
+const roleId = '1348017014869987469';
+const imagesFolderPath = './src/assets/bns/';
+
+const name = 'wipe-time';
 const description = 'Calls for BnS role';
 const slashCommandBuilder = new SlashCommandBuilder()
     .setName(name)
@@ -13,21 +18,29 @@ export default {
     slashCommandBuilder,
     async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
         await interaction.deferReply();
-        const roleId = '1348017014869987469';
+
         try {
-            const randomImage = `${getRandom(0, 7)}.jpg`;
+            const files = await readdir(imagesFolderPath);
+            const images = files.filter(f => /\.(jpe?g|png)$/i.test(f));
+
+            if (images.length === 0) {
+                await interaction.editReply({ content: 'Brak dostępnych obrazków :(' });
+                return;
+            }
+
+            const randomImage = images[getRandom(0, images.length - 1)];
             await interaction.editReply({
                 content: `<@&${roleId}> It's WIPE TIME! <:catNooo:777774153402679308>`,
-                files: [{ attachment: `./src/assets/bns/${randomImage}` }]
+                files: [{ attachment: path.join(imagesFolderPath, randomImage) }]
             });
         } catch (error) {
             console.error(error);
             sendMessageToBotLogsChannel(client, `Komenda '${name}' nie działa. Error: ${error}`);
 
             if (interaction.deferred || interaction.replied) {
-                interaction.editReply({ content: 'Siem obrazki popsuły :(' });
+                await interaction.editReply({ content: 'Siem obrazki popsuły :(' });
             } else {
-                interaction.reply({ content: 'Siem obrazki popsuły :(' });
+                await interaction.reply({ content: 'Siem obrazki popsuły :(' });
             }
         }
     },

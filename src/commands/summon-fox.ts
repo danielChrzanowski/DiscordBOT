@@ -1,7 +1,9 @@
 import { Client, ChatInputCommandInteraction, SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 import { sendMessageToBotLogsChannel } from '../addons/utils.js';
 
-const name = 'summonfox';
+const imaginaryFoxId = '<@337220705252802571>';
+
+const name = 'summon-fox';
 const description = 'Summons The Fox';
 const slashCommandBuilder = new SlashCommandBuilder()
     .setName(name)
@@ -14,14 +16,13 @@ export default {
     async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
         await interaction.deferReply();
         try {
-            const imaginaryFoxId = '<@337220705252802571>';
-            let url: string = '';
+            let foxImageUrl: string = '';
             await fetch('https://randomfox.ca/floof/')
                 .then(response => response.json())
-                .then((data: any) => url = data.image);
+                .then((data: any) => foxImageUrl = data.image);
 
             const embed = new EmbedBuilder()
-                .setImage(url)
+                .setImage(foxImageUrl)
                 .setColor('#e67e22');
             await interaction.editReply({
                 content: `Summon ${imaginaryFoxId} <:catNooo:777774153402679308>`,

@@ -15,20 +15,17 @@ export default {
         await interaction.editReply({
             content: `KOMENDY:
             -cat -> losowy koteł
-            -doge -> losowy pieseł
-            -summonFox -> przyzywa Foxa
-            -summon [użytkownicy] -> przyzywa użytkowników
-            -dogeCounter -> twój licznik piesełów
-            -dogeCounter [użytkownicy] -> licznik piesełów
             -clear <ile> -> kasowanie wiadomości (max: 100 wiadomości, 14 dni wstecz)
-            -sleep [użytkownicy] -> kick z głosowego
-            -druzynaOgniowa -> woła do Destiny 2 REEE
-            -wipeTime -> woła do BnS REEE
+            -dogeCounter [użytkownicy] -> licznik piesełów (opcjonalnie można podać użytkowników)
+            -doge -> losowy pieseł
+            -druzynaOgniowa -> woła Drużynę Ogniową REEE
             -fun -> fun :)
             -neko <argument> -> losowe neko z parametrem
-            -nekoHelp -> parametry do neko
-            -ps2 -> populacja PS2 - Miller
-            -ps2 <nick> -> statystyki gracza`,
+            -ps2 [nick] -> populacja PS2 - Miller lub statystyki gracza (jeśli podasz nick w parametrze)
+            -summonFox -> przyzywa Foxa
+            -summon <użytkownicy> -> przyzywa użytkowników
+            -sleep <użytkownicy> -> kick z głosowego
+            -wipeTime -> woła do BnS REEE`,
         });
     },
 };

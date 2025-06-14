@@ -1,14 +1,14 @@
-import { Client, ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, Client, SlashCommandBuilder } from 'discord.js';
 import { sendMessageToBotLogsChannel } from '../addons/utils.js';
 
 const name = 'ps2';
-const description = 'Prints PlanetSide 2 Miller population';
+const description = 'Prints PlanetSide 2 Miller population or player info';
 const slashCommandBuilder = new SlashCommandBuilder()
     .setName(name)
     .setDescription(description)
     .addStringOption(option =>
         option.setName('nick')
-            .setDescription('Nick gracza (opcjonalnie)')
+            .setDescription('Player nickname to get info about')
             .setRequired(false)
     );
 
@@ -33,10 +33,7 @@ export default {
                             const lastLoginDate = data.character_list[0].times.last_login_date;
                             const lastSaveDate = data.character_list[0].times.last_save_date;
                             interaction.editReply({
-                                content: `Gracz: "${playerName}"
-                                Certy: ${certs}
-                                Ostatnie logowanie: ${lastLoginDate}
-                                Ostatni save: ${lastSaveDate}`
+                                content: `Gracz: "${playerName}"\nCerty: ${certs}\nOstatnie logowanie: ${lastLoginDate}\nOstatni save: ${lastSaveDate}`
                             });
                         }
                     });

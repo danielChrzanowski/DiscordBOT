@@ -2,14 +2,14 @@ import { ChatInputCommandInteraction, Client, Message, SlashCommandBuilder } fro
 import { getRandomCuteReaction } from '../addons/reactions.js';
 import { sendMessageToBotLogsChannel } from '../addons/utils.js';
 
-const name = 'dogecounter';
-const description = 'Prints dogeCounter';
+const name = 'doge-counter';
+const description = 'Prints doge-counter';
 const slashCommandBuilder = new SlashCommandBuilder()
     .setName(name)
     .setDescription(description)
     .addUserOption(option =>
         option.setName('user')
-            .setDescription('User to check doge counter for')
+            .setDescription('User to check doge-counter for')
             .setRequired(false)
     );
 

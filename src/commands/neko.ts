@@ -1,7 +1,11 @@
-import { ChatInputCommandInteraction, Client, SlashCommandBuilder, TextChannel } from 'discord.js';
+import { ChatInputCommandInteraction, Client, Message, SlashCommandBuilder, TextChannel } from 'discord.js';
+import { getRandomNekoReaction } from '../addons/reactions.js';
 import { getRandom, sendMessageToBotLogsChannel } from '../addons/utils.js';
 
+type NekoApiResponse = { items: { url: string }[] };
+
 const nekoParameters = ['safe', 'suggestive', 'borderline', 'explicit'];
+const NSFWParameters = ['explicit'];
 
 const name = 'neko';
 const description = 'Prints neko';
@@ -9,7 +13,7 @@ const slashCommandBuilder = new SlashCommandBuilder()
     .setName(name)
     .setDescription(description)
     .addStringOption(option =>
-        option.setName('parametr')
+        option.setName('parameter')
             .setDescription(nekoParameters.join(', '))
             .setRequired(true)
     );
@@ -21,29 +25,32 @@ export default {
     async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
         await interaction.deferReply();
 
-        const NSFWParameters = ['explicit'];
-        const param = interaction.options.getString('parametr', true);
+        const param = interaction.options.getString('parameter', true);
 
         if (!nekoParameters.includes(param)) {
             await interaction.editReply('Podano zły parametr :(');
             return;
         }
+
         if (NSFWParameters.includes(param) && interaction.channel && !(interaction.channel as TextChannel).nsfw) {
             await interaction.editReply('Możesz użyć tego argumentu tylko na kanale NSFW');
             return;
         }
+
         try {
-            const params = new URLSearchParams();
-            params.append('rating', param);
-            type NekoApiResponse = { items: { url: string }[] };
-            const response = await fetch(`https://api.nekosapi.com/v4/images?${params}`)
+            const urlSearchParams = new URLSearchParams();
+            urlSearchParams.append('rating', param);
+            const response = await fetch(`https://api.nekosapi.com/v4/images?${urlSearchParams}`)
                 .then(res => res.json() as Promise<NekoApiResponse>);
+
             if (!response.items || response.items.length === 0) {
                 await interaction.editReply('Brak wyników dla tego parametru.');
                 return;
             }
+
             const randomImageIndex = getRandom(0, response.items.length - 1);
-            await interaction.editReply(response.items[randomImageIndex].url);
+            const message: Message = await interaction.editReply(response.items[randomImageIndex].url);
+            message.react(getRandomNekoReaction());
         } catch (error) {
             console.error(error);
             sendMessageToBotLogsChannel(client, `Komenda '${name}' nie działa. Error: ${error}`);

@@ -19,7 +19,7 @@ export default (client: Client) => {
             if (typeof event === 'function') {
                 client.on(eventName, event);
             } else {
-                console.error(`Event ${file} nie eksportuje funkcji!`);
+                console.error(`Event ${file} does not export a function!`);
             }
         }).catch(err => {
             console.error(`Failed to load event ${file}:`, err);
