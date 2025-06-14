@@ -1,7 +1,5 @@
 import { ChatInputCommandInteraction, Client, SlashCommandBuilder, TextChannel } from 'discord.js';
-import { sendMessageToBotLogsChannel } from '../addons/utils.js';
-
-const maxMessagesToDelete = 100;
+import { MAX_MESSAGES_TO_DELETE_COUNT, sendMessageToBotLogsChannel } from '../addons/utils.js';
 
 const name = 'clear';
 const description = 'Clears chat messages';
@@ -10,7 +8,7 @@ const slashCommandBuilder = new SlashCommandBuilder()
     .setDescription(description)
     .addIntegerOption(option =>
         option.setName('amount')
-            .setDescription(`Number of messages to delete (max ${maxMessagesToDelete})`)
+            .setDescription(`Number of messages to delete (max ${MAX_MESSAGES_TO_DELETE_COUNT})`)
             .setRequired(true)
     );
 
@@ -27,8 +25,8 @@ export default {
         }
 
         const amount = interaction.options.getInteger('amount', true);
-        if (amount > maxMessagesToDelete || amount < 1) {
-            await interaction.editReply({ content: `Podaj liczbę od 1 do ${maxMessagesToDelete}.` });
+        if (amount > MAX_MESSAGES_TO_DELETE_COUNT || amount < 1) {
+            await interaction.editReply({ content: `Podaj liczbę od 1 do ${MAX_MESSAGES_TO_DELETE_COUNT}.` });
             return;
         }
 
@@ -36,7 +34,6 @@ export default {
             const channel = interaction.channel as TextChannel;
             const messages = await channel.messages.fetch({ limit: amount + 1 });
             await channel.bulkDelete(messages);
-            await interaction.editReply({ content: `Usunięto ${amount} wiadomości.` });
         } catch (error) {
             console.log(error);
             sendMessageToBotLogsChannel(client, `Komenda '${name}' nie działa. Error: ${error}`);

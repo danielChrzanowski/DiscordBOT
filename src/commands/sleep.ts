@@ -1,15 +1,27 @@
-import { ChatInputCommandInteraction, Client, SlashCommandBuilder } from "discord.js";
-import { getInteractionMentionedUsers, getRandom } from "../addons/utils.js";
+import { ChatInputCommandInteraction, Client, SlashCommandBuilder, TextChannel } from "discord.js";
+import { getRandom, getRandomSleepResponse, getUserOptions } from "../addons/utils.js";
+
+const maxUsersToSleepCount = 3;
 
 const name = 'sleep';
 const description = 'Disconnects voice channel users';
 const slashCommandBuilder = new SlashCommandBuilder()
     .setName(name)
     .setDescription(description)
-    .addStringOption(option =>
-        option.setName('users')
-            .setDescription('Users to send to sleep')
+    .addUserOption(option =>
+        option.setName('user1')
+            .setDescription('Pierwszy użytkownik do uspania (wymagany)')
             .setRequired(true)
+    )
+    .addUserOption(option =>
+        option.setName('user2')
+            .setDescription('Drugi użytkownik do uspania (opcjonalny)')
+            .setRequired(false)
+    )
+    .addUserOption(option =>
+        option.setName('user3')
+            .setDescription('Trzeci użytkownik do uspania (opcjonalny)')
+            .setRequired(false)
     );
 
 export default {
@@ -24,56 +36,57 @@ export default {
             return;
         }
 
-        const userIds = getInteractionMentionedUsers(interaction);
+        const userOptions = getUserOptions(interaction, maxUsersToSleepCount);
+        if (userOptions.length === 0) {
+            await interaction.editReply({ content: 'Nie podałeś żadnych użytkowników do uspania' });
+            return;
+        }
 
-        if (userIds.includes('823862166850502657')) {
+        if (userOptions.some(user => user.id === '823862166850502657')) {
             await interaction.editReply({ content: 'Jak śmiesz próbować mnie kickować <:pathetic:776129039688663061>' });
             return;
         }
 
         const guild = interaction.guild;
         if (!guild) {
-            await interaction.editReply({ content: 'Nie można znaleźć gildii.' });
+            await interaction.editReply({ content: 'Nie można znaleźć gildii' });
             return;
         }
 
-        const msgs: string[] = [];
-        for (const userId of userIds) {
+        const channel = interaction.channel as TextChannel | null;
+        if (!channel) {
+            await interaction.editReply({ content: 'Nie znaleziono kanału' });
+            return;
+        }
+
+        for (const user of userOptions) {
             try {
-                const memberTarget = await guild.members.fetch(userId);
-                const mention = `<@${userId}>`;
+                const memberTarget = await guild.members.fetch(user.id);
+                const mention = `<@${user.id}>`;
 
                 if (memberTarget.voice && memberTarget.voice.channelId) {
-                    const rand = getRandom(0, 3);
-                    let msg = '';
+                    let response = getRandomSleepResponse(mention);
 
-                    switch (rand) {
-                        case 0:
-                            msg = `${mention}, milusia kołderka <:pupperSleep:788211096481562654>`;
-                            break;
-                        case 1:
-                            msg = `${mention}, do spania dziecko drogie <:dogeSleep:781255974077464636>`;
-                            break;
-                        case 2:
-                            msg = `${mention}, Foxik mówi dobranoc <:chibiFox:474699471670738954>`;
-                            break;
-                    }
-
-                    msgs.push(msg);
                     await memberTarget.voice.setChannel(null);
+                    await channel.send({
+                        content: response,
+                        allowedMentions: { users: [user!.id] },
+                    });
                 } else {
-                    msgs.push(`Chill mon <:catGun:790433695998935090>. ${mention} już śpi :sleeping:`);
+                    await channel.send({
+                        content: `Chill mon <:catGun:790433695998935090>. ${mention} już śpi :sleeping:`,
+                        allowedMentions: { users: [user!.id] },
+                    });
                 }
             } catch {
-                msgs.push(`Nie można znaleźć użytkownika o ID ${userId}`);
+                await channel.send({
+                    content: `Nie można znaleźć użytkownika ${user.tag}`,
+                    allowedMentions: { users: [user!.id] },
+                });
             }
         }
 
-        if (msgs.length === 0) {
-            interaction.editReply({ content: 'Nie podałeś żadnych użytkowników do uspania' });
-            return;
-        }
-
-        await interaction.editReply({ content: msgs.join('\n') });
+        await interaction.editReply({ content: 'Wszyscy uspani :sleeping:' });
     }
 };
+

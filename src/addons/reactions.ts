@@ -1,6 +1,6 @@
 import { getRandom } from "./utils.js";
 
-var lastIndex = -1;
+var lastRandomReactionIndex = -1;
 
 const cuteReactions = [
     '<:pupperBless:781254877682729001>',
@@ -22,8 +22,8 @@ const getRandomCuteReaction = (): string => {
     let randomIndex: number;
     do {
         randomIndex = getRandom(0, cuteReactions.length - 1);
-    } while (randomIndex === lastIndex);
-    lastIndex = randomIndex;
+    } while (randomIndex === lastRandomReactionIndex);
+    lastRandomReactionIndex = randomIndex;
     return cuteReactions[randomIndex];
 };
 
@@ -31,8 +31,8 @@ const getRandomNekoReaction = (): string => {
     let randomIndex: number;
     do {
         randomIndex = getRandom(0, nekoReactions.length - 1);
-    } while (randomIndex === lastIndex);
-    lastIndex = randomIndex;
+    } while (randomIndex === lastRandomReactionIndex);
+    lastRandomReactionIndex = randomIndex;
     return nekoReactions[randomIndex];
 };
 

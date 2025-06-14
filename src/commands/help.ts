@@ -1,4 +1,5 @@
 import { Client, ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { MAX_MESSAGES_TO_DELETE_COUNT } from '../addons/utils.js';
 
 const name = 'help';
 const description = 'Prints bot commands';
@@ -15,8 +16,8 @@ export default {
         await interaction.editReply({
             content: `KOMENDY:
             -cat -> losowy koteł
-            -clear <ile> -> kasowanie wiadomości (max: 100 wiadomości, 14 dni wstecz)
-            -dogeCounter [użytkownicy] -> licznik piesełów (opcjonalnie można podać użytkowników)
+            -clear <ile> -> kasowanie wiadomości (max: ${MAX_MESSAGES_TO_DELETE_COUNT} wiadomości, 14 dni wstecz)
+            -dogeCounter [użytkownik] -> licznik piesełów (opcjonalnie można podać użytkownika)
             -doge -> losowy pieseł
             -druzynaOgniowa -> woła Drużynę Ogniową REEE
             -fun -> fun :)

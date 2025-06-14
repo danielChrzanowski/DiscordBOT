@@ -1,12 +1,12 @@
 import { ChatInputCommandInteraction, Client, SlashCommandBuilder, TextChannel } from 'discord.js';
 import { getRandomCuteReaction } from '../addons/reactions.js';
+import { getUserOptions } from '../addons/utils.js';
 
 const maxUsersToSummonCount = 3;
 const summonCount = 3;
 
 const name = 'summon';
 const description = `Summons tagged users (up to ${maxUsersToSummonCount})`;
-
 const slashCommandBuilder = new SlashCommandBuilder()
     .setName(name)
     .setDescription(description)
@@ -33,18 +33,15 @@ export default {
     async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
         await interaction.deferReply();
 
-
-        const channel = interaction.channel as TextChannel | null;
-        if (!channel) return;
-
-        const users = [
-            interaction.options.getUser('user1'),
-            interaction.options.getUser('user2'),
-            interaction.options.getUser('user3'),
-        ].filter(Boolean);
-
+        const users = getUserOptions(interaction, maxUsersToSummonCount);
         if (users.length === 0) {
             await interaction.followUp({ content: 'Nie podano użytkowników' });
+            return;
+        }
+
+        const channel = interaction.channel as TextChannel | null;
+        if (!channel) {
+            await interaction.editReply({ content: 'Nie znaleziono kanału' });
             return;
         }
 
@@ -56,7 +53,6 @@ export default {
                     content: `Summon <@${user!.id}> ${getRandomCuteReaction()}`,
                     allowedMentions: { users: [user!.id] },
                 });
-
                 await new Promise(r => setTimeout(r, 1000));
             }
         }
