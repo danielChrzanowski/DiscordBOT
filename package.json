@@ -10,7 +10,8 @@
     "register-commands": "node dist/handlers/register-commands.js",
     "start": "npm run build && npm run register-commands && node dist/index.js",
     "dev": "ts-node src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npx eslint . --fix"
   },
   "author": "Nijjan",
   "license": "ISC",
@@ -28,6 +29,10 @@
     "@types/express": "^5.0.3",
     "@types/node": "^24.0.1",
     "@types/ws": "^8.18.1",
+    "@typescript-eslint/eslint-plugin": "^8.34.1",
+    "@typescript-eslint/parser": "^8.34.1",
+    "eslint": "^9.29.0",
+    "eslint-plugin-import": "^2.31.0",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"

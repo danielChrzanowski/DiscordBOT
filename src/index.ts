@@ -1,10 +1,10 @@
-import { Client, Collection, GatewayIntentBits } from 'discord.js';
-import dotenv from 'dotenv';
-import botStatus from './addons/bot-status.js';
-import commandHandler from './handlers/command-handler.js';
-import interactionHandler from './handlers/interaction-handler.js';
-import { startPingServer } from './ping-server.js';
-import { initFirebase } from './firebase/firebase-utils.js';
+import { Client, Collection, GatewayIntentBits } from "discord.js";
+import dotenv from "dotenv";
+import botStatus from "./addons/bot-status.js";
+import { initFirebase } from "./firebase/firebase-utils.js";
+import commandHandler from "./handlers/command-handler.js";
+import interactionHandler from "./handlers/interaction-handler.js";
+import { startPingServer } from "./ping-server.js";
 
 dotenv.config();
 
@@ -28,10 +28,10 @@ client.commands = new Collection();
 await commandHandler(client);
 startPingServer();
 
-client.on('ready', () => {
+client.on("ready", () => {
   initFirebase();
   botStatus.execute(client);
-  console.log('Dzieci Neo is online!');
+  console.log("Dzieci Neo is online!");
 });
-client.on('interactionCreate', interactionHandler);
+client.on("interactionCreate", interactionHandler);
 client.login(process.env.DISCORD_TOKEN);
