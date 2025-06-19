@@ -11,7 +11,7 @@
     "start": "npm run build && npm run register-commands && node dist/index.js",
     "dev": "ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "npx eslint . --fix"
+    "lint": "npx prettier . --write && npx eslint . --fix"
   },
   "author": "Nijjan",
   "license": "ISC",
@@ -33,6 +33,8 @@
     "@typescript-eslint/parser": "^8.34.1",
     "eslint": "^9.29.0",
     "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.5.0",
+    "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"

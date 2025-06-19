@@ -1,12 +1,12 @@
-import { ChatInputCommandInteraction, Client, SlashCommandBuilder } from "discord.js";
+import { ChatInputCommandInteraction, Client, SlashCommandBuilder } from 'discord.js';
 import {
   MAX_MESSAGES_TO_DELETE_COUNT,
   MAX_USERS_TO_SLEEP_COUNT,
   MAX_USERS_TO_SUMMON_COUNT,
-} from "../addons/constants.js";
+} from '../addons/constants.js';
 
-const name = "help";
-const description = "Prints bot commands";
+const name = 'help';
+const description = 'Prints bot commands';
 const slashCommandBuilder = new SlashCommandBuilder().setName(name).setDescription(description);
 
 export default {

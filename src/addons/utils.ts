@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, Client, User } from "discord.js";
+import { ChatInputCommandInteraction, Client, User } from 'discord.js';
 
 const sendMessageToBotLogsChannel = async (client: Client, message: string) => {
   const logChannel = await client.channels.fetch(process.env.LOG_CHANNEL_ID!);
@@ -13,10 +13,7 @@ const getRandom = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const getUserOptions = (
-  interaction: ChatInputCommandInteraction,
-  count: number
-): User[] => {
+const getUserOptions = (interaction: ChatInputCommandInteraction, count: number): User[] => {
   return Array.from({ length: count })
     .map((_, i) => interaction.options.getUser(`user${i + 1}`))
     .filter((u): u is User => u !== null);
@@ -27,13 +24,10 @@ const handleError = (
   interaction: ChatInputCommandInteraction,
   error: unknown,
   commandName: string,
-  replyForUser: string
+  replyForUser: string,
 ): void => {
   console.error(error);
-  sendMessageToBotLogsChannel(
-    client,
-    `Komenda '${commandName}' nie działa. Error: ${error}`
-  );
+  sendMessageToBotLogsChannel(client, `Komenda '${commandName}' nie działa. Error: ${error}`);
 
   if (interaction.deferred || interaction.replied) {
     interaction.editReply({ content: replyForUser });

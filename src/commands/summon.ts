@@ -1,21 +1,21 @@
-import { ChatInputCommandInteraction, Client, SlashCommandBuilder, TextChannel } from "discord.js";
-import { MAX_USERS_TO_SUMMON_COUNT } from "../addons/constants.js";
-import { getRandomCuteReaction } from "../addons/reactions.js";
-import { getUserOptions } from "../addons/utils.js";
+import { ChatInputCommandInteraction, Client, SlashCommandBuilder, TextChannel } from 'discord.js';
+import { MAX_USERS_TO_SUMMON_COUNT } from '../addons/constants.js';
+import { getRandomCuteReaction } from '../addons/reactions.js';
+import { getUserOptions } from '../addons/utils.js';
 
 const summonCount = 3;
 
-const name = "summon";
+const name = 'summon';
 const description = `Summons tagged users (up to ${MAX_USERS_TO_SUMMON_COUNT})`;
 const slashCommandBuilder = new SlashCommandBuilder()
   .setName(name)
   .setDescription(description)
-  .addUserOption((option) => option.setName("user1").setDescription("First user to summon").setRequired(true))
+  .addUserOption((option) => option.setName('user1').setDescription('First user to summon').setRequired(true))
   .addUserOption((option) =>
-    option.setName("user2").setDescription("Second user to summon (optional)").setRequired(false),
+    option.setName('user2').setDescription('Second user to summon (optional)').setRequired(false),
   )
   .addUserOption((option) =>
-    option.setName("user3").setDescription("Third user to summon (optional)").setRequired(false),
+    option.setName('user3').setDescription('Third user to summon (optional)').setRequired(false),
   );
 
 export default {
@@ -27,18 +27,18 @@ export default {
 
     const users = getUserOptions(interaction, MAX_USERS_TO_SUMMON_COUNT);
     if (users.length === 0) {
-      await interaction.followUp({ content: "Nie podano użytkowników" });
+      await interaction.followUp({ content: 'Nie podano użytkowników' });
       return;
     }
 
     const channel = interaction.channel as TextChannel | null;
     if (!channel) {
-      await interaction.editReply({ content: "Nie znaleziono kanału" });
+      await interaction.editReply({ content: 'Nie znaleziono kanału' });
       return;
     }
 
     await interaction.editReply({
-      content: `Przyzywam ${users.map((u) => `<@${u!.id}>`).join(", ")} <:pathetic:776129039688663061>`,
+      content: `Przyzywam ${users.map((u) => `<@${u!.id}>`).join(', ')} <:pathetic:776129039688663061>`,
     });
 
     for (const user of users) {

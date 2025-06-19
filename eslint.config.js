@@ -1,11 +1,12 @@
 import tseslint from '@typescript-eslint/eslint-plugin';
 import parser from '@typescript-eslint/parser';
 import eslintPluginImport from 'eslint-plugin-import';
+import eslintPluginPrettier from 'eslint-plugin-prettier';
 
 export default [
   {
     files: ['**/*.ts', '**/*.js'],
-    ignores: ['node_modules/**', 'dist/**', 'eslint.config.js'],
+    ignores: ['node_modules/**', 'dist/**', 'eslint.config.js', 'prettier.config.js'],
     languageOptions: {
       parser,
       parserOptions: {
@@ -16,19 +17,9 @@ export default [
     plugins: {
       '@typescript-eslint': tseslint,
       import: eslintPluginImport,
+      prettier: eslintPluginPrettier,
     },
     rules: {
-      'max-len': [
-        'warn',
-        {
-          code: 120,
-          tabWidth: 2,
-          ignoreUrls: true,
-          ignoreStrings: true,
-          ignoreTemplateLiterals: true,
-          ignoreComments: true,
-        },
-      ],
       'import/order': [
         'error',
         {
@@ -41,6 +32,7 @@ export default [
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
       'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0 }],
+      'prettier/prettier': 'error',
     },
   },
 ];

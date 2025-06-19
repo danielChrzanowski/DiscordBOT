@@ -1,4 +1,4 @@
-import { Interaction, ChatInputCommandInteraction, Client, Collection } from "discord.js";
+import { Interaction, ChatInputCommandInteraction, Client, Collection } from 'discord.js';
 
 export default async (interaction: Interaction) => {
   if (!interaction.isChatInputCommand()) return;
@@ -14,12 +14,12 @@ export default async (interaction: Interaction) => {
     console.error(error);
     if (interaction.replied || interaction.deferred) {
       await interaction.followUp({
-        content: "There was an error running the command",
+        content: 'There was an error running the command',
         ephemeral: true,
       });
     } else {
       await interaction.reply({
-        content: "There was an error running the command",
+        content: 'There was an error running the command',
         ephemeral: true,
       });
     }

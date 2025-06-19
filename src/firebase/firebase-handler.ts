@@ -1,33 +1,17 @@
-import admin from "firebase-admin";
+import firebaseAdmin from './firebase-init.js';
 
-export default {
-  name: "firebase",
-  description: "Firebase handler",
+const db = firebaseAdmin.firestore();
+const doges = db.collection('doges');
 
-  async execute(variable: string, id: string, username: string) {
-    const db = admin.firestore();
-
-    switch (variable) {
-      case "getDogeCounter":
-        return getDogeCounter();
-      case "setDogeCounter":
-        let dogeCounter = Number(await getDogeCounter()) + 1;
-        const docRef = db.collection("doges").doc(id);
-        await docRef.set({
-          username: username,
-          dogeCounter: dogeCounter,
-        });
-        return;
-    }
-
-    async function getDogeCounter(): Promise<number> {
-      let dogeCounterDoc = await db.collection("doges").doc(id).get();
-      const data = dogeCounterDoc.data();
-      if (data && typeof data.dogeCounter === "number") {
-        return data.dogeCounter;
-      } else {
-        return 0;
-      }
-    }
-  },
+const getDogeCounter = async (userId: string): Promise<number> => {
+  const snap = await doges.doc(userId).get();
+  return typeof snap.get('dogeCounter') === 'number' ? snap.get('dogeCounter') : 0;
 };
+
+const setDogeCounter = async (userId: string, userName: string): Promise<void> => {
+  await doges
+    .doc(userId)
+    .set({ username: userName, dogeCounter: firebaseAdmin.firestore.FieldValue.increment(1) }, { merge: true });
+};
+
+export { getDogeCounter, setDogeCounter };

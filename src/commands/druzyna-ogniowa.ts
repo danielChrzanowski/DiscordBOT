@@ -1,13 +1,13 @@
-import { readdir } from "fs/promises";
-import path from "path";
-import { ChatInputCommandInteraction, Client, SlashCommandBuilder } from "discord.js";
-import { getRandom, handleError } from "../addons/utils.js";
+import { readdir } from 'fs/promises';
+import path from 'path';
+import { ChatInputCommandInteraction, Client, SlashCommandBuilder } from 'discord.js';
+import { getRandom, handleError } from '../addons/utils.js';
 
-const roleId = "1348065128117178368";
-const imagesFolderPath = "./src/assets/druzyna-ogniowa/";
+const roleId = '1348065128117178368';
+const imagesFolderPath = './src/assets/druzyna-ogniowa/';
 
-const name = "druzyna-ogniowa";
-const description = "Calls for Drużyna Ogniowa";
+const name = 'druzyna-ogniowa';
+const description = 'Calls for Drużyna Ogniowa';
 const slashCommandBuilder = new SlashCommandBuilder().setName(name).setDescription(description);
 
 export default {
@@ -22,7 +22,7 @@ export default {
       const images = files.filter((f) => /\.(jpe?g|png)$/i.test(f));
 
       if (images.length === 0) {
-        await interaction.editReply({ content: "Brak dostępnych obrazków :(" });
+        await interaction.editReply({ content: 'Brak dostępnych obrazków :(' });
         return;
       }
 
@@ -35,7 +35,7 @@ export default {
         },
       });
     } catch (error) {
-      handleError(client, interaction, error, name, "Siem obrazki popsuły :(");
+      handleError(client, interaction, error, name, 'Siem obrazki popsuły :(');
     }
   },
 };

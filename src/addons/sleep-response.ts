@@ -1,4 +1,4 @@
-import { getRandom } from "./utils.js";
+import { getRandom } from './utils.js';
 
 let lastSleepResponseIndex = -1;
 

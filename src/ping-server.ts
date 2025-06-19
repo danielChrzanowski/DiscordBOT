@@ -1,5 +1,5 @@
-import dotenv from "dotenv";
-import express from "express";
+import dotenv from 'dotenv';
+import express from 'express';
 
 dotenv.config();
 
@@ -8,7 +8,7 @@ export function startPingServer() {
   let pingId = 1;
 
   server.use((_req, res) => {
-    res.setHeader("Content-Type", "application/json");
+    res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ pingId }));
   });
 
@@ -19,13 +19,13 @@ export function startPingServer() {
 
   setInterval(async () => {
     try {
-      await fetch("https://dzieci-neo-gzr5.onrender.com");
+      await fetch('https://dzieci-neo-gzr5.onrender.com');
       console.log(`Ping: ${pingId++}`);
       if (pingId >= 1000) {
         pingId = 1;
       }
     } catch (error) {
-      console.error("Error pinging server:", error);
+      console.error('Error pinging server:', error);
     }
   }, 30_000);
 }
