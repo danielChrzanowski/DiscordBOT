@@ -1,6 +1,6 @@
 import { ChatInputCommandInteraction, Client, SlashCommandBuilder, TextChannel } from 'discord.js';
 import { MAX_USERS_TO_SLEEP_COUNT } from '../addons/constants.js';
-import { getRandomSleepResponse } from '../addons/sleep-response.js';
+import getRandomSleepResponse from '../addons/sleep-response.js';
 import { getUserOptions } from '../addons/utils.js';
 
 const name = 'sleep';

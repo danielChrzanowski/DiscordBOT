@@ -1,6 +1,6 @@
 import { Client, Collection, GatewayIntentBits } from 'discord.js';
 import dotenv from 'dotenv';
-import botStatus from './addons/bot-status.js';
+import initBotStatuses from './addons/bot-statuses.js';
 import commandHandler from './handlers/command-handler.js';
 import interactionHandler from './handlers/interaction-handler.js';
 import { startPingServer } from './ping-server.js';
@@ -28,7 +28,7 @@ await commandHandler(client);
 startPingServer();
 
 client.on('ready', () => {
-  botStatus.execute(client);
+  initBotStatuses(client);
   console.log('Dzieci Neo is online!');
 });
 client.on('interactionCreate', interactionHandler);

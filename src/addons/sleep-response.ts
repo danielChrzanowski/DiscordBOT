@@ -17,4 +17,4 @@ const getRandomSleepResponse = (mention: string): string => {
   return responses[index];
 };
 
-export { getRandomSleepResponse };
+export default getRandomSleepResponse;
