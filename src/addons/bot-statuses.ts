@@ -14,6 +14,16 @@ const botStatuses: BotStatus[] = [
   { activity: 'TOP 1 DPS', type: ActivityType.Competing },
   { activity: 'Blade & Soul', type: ActivityType.Playing },
   { activity: 'jak trawa rośnie', type: ActivityType.Listening },
+  { activity: 'speedrun zmywania naczyń', type: ActivityType.Streaming },
+  { activity: 'wyścigu ślimaków', type: ActivityType.Competing },
+  { activity: 'koty w cosplayu', type: ActivityType.Watching },
+  { activity: 'szant piratów', type: ActivityType.Listening },
+  { activity: 'kurs łapania Pokemonów', type: ActivityType.Playing },
+  { activity: 'memy o ziemniakach', type: ActivityType.Watching },
+  { activity: 'jak pęka popcorn', type: ActivityType.Watching },
+  { activity: 'walki na poduszki', type: ActivityType.Competing },
+  { activity: 'wędkowanie w kałuży', type: ActivityType.Playing },
+  { activity: 'jak schnie farba', type: ActivityType.Listening },
 ];
 
 const updateTimeHours = 3;
