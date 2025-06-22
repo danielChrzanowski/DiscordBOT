@@ -4,7 +4,7 @@ import getRandomSleepResponse from '../addons/sleep-response.js';
 import { getUserOptions } from '../addons/utils.js';
 
 const name = 'sleep';
-const description = 'Disconnects voice channel users';
+const description = `Disconnects voice channel users (up to ${MAX_USERS_TO_SLEEP_COUNT})`;
 const slashCommandBuilder = new SlashCommandBuilder()
   .setName(name)
   .setDescription(description)
