@@ -15,7 +15,6 @@ const botStatuses: BotStatus[] = [
   { activity: 'Blade & Soul', type: ActivityType.Playing },
   { activity: 'jak trawa rośnie', type: ActivityType.Listening },
   { activity: 'speedrun zmywania naczyń', type: ActivityType.Streaming },
-  { activity: 'wyścigu ślimaków', type: ActivityType.Competing },
   { activity: 'koty w cosplayu', type: ActivityType.Watching },
   { activity: 'szant piratów', type: ActivityType.Listening },
   { activity: 'kurs łapania Pokemonów', type: ActivityType.Playing },
