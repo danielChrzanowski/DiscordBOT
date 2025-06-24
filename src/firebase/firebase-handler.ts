@@ -8,10 +8,10 @@ const getDogeCounter = async (userId: string): Promise<number> => {
   return typeof snap.get('dogeCounter') === 'number' ? snap.get('dogeCounter') : 0;
 };
 
-const setDogeCounter = async (userId: string, userName: string): Promise<void> => {
+const incrementDogeCounter = async (userId: string, userName: string): Promise<void> => {
   await doges
     .doc(userId)
     .set({ username: userName, dogeCounter: firebaseAdmin.firestore.FieldValue.increment(1) }, { merge: true });
 };
 
-export { getDogeCounter, setDogeCounter };
+export { getDogeCounter, incrementDogeCounter };

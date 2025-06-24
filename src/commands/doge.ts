@@ -1,7 +1,7 @@
 import { ChatInputCommandInteraction, Client, Message, SlashCommandBuilder } from 'discord.js';
 import { getRandomCuteReaction } from '../addons/reactions.js';
 import { handleError } from '../addons/utils.js';
-import { setDogeCounter } from '../firebase/firebase-handler.js';
+import { incrementDogeCounter } from '../firebase/firebase-handler.js';
 
 const name = 'doge';
 const description = 'Prints a doge';
@@ -18,7 +18,7 @@ export default {
       const message: Message = await interaction.editReply({ content: url });
       message.react(getRandomCuteReaction());
 
-      setDogeCounter(interaction.user.id, interaction.user.username);
+      incrementDogeCounter(interaction.user.id, interaction.user.username);
     } catch (error) {
       handleError(client, interaction, error, name, 'Nie ma pieseła, bo API nie działa :(');
     }

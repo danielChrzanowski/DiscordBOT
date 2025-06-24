@@ -9,7 +9,6 @@
     "build": "npm run clean && tsc",
     "register-commands": "node dist/handlers/register-commands.js",
     "start": "npm run build && npm run register-commands && node dist/index.js",
-    "dev": "ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "npx prettier . --write && npx eslint . --fix"
   },
