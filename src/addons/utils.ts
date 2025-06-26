@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, Client, User } from 'discord.js';
+import { ChatInputCommandInteraction, Client, TextChannel, User } from 'discord.js';
 
 const sendMessageToBotLogsChannel = async (client: Client, message: string) => {
   const logChannel = await client.channels.fetch(process.env.LOG_CHANNEL_ID!);
@@ -36,4 +36,13 @@ const handleError = (
   }
 };
 
-export { getRandom, sendMessageToBotLogsChannel, getUserOptions, handleError };
+const getChannel = async (interaction: ChatInputCommandInteraction): Promise<TextChannel | null> => {
+  const channel = interaction.channel as TextChannel | null;
+  if (!channel) {
+    await interaction.editReply({ content: 'Nie znaleziono kanału' });
+    return null;
+  }
+  return channel;
+};
+
+export { getRandom, sendMessageToBotLogsChannel, getUserOptions, handleError, getChannel };

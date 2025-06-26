@@ -1,9 +1,9 @@
-import { ChatInputCommandInteraction, Client, SlashCommandBuilder, TextChannel } from 'discord.js';
+import { ChatInputCommandInteraction, Client, SlashCommandBuilder } from 'discord.js';
 import { MAX_USERS_TO_SUMMON_COUNT } from '../addons/constants.js';
 import { getRandomCuteReaction } from '../addons/reactions.js';
-import { getUserOptions } from '../addons/utils.js';
+import { getChannel, getUserOptions } from '../addons/utils.js';
 
-const summonCount = 3;
+const summonCount = 5;
 
 const name = 'summon';
 const description = `Summons tagged users (up to ${MAX_USERS_TO_SUMMON_COUNT})`;
@@ -31,11 +31,8 @@ export default {
       return;
     }
 
-    const channel = interaction.channel as TextChannel | null;
-    if (!channel) {
-      await interaction.editReply({ content: 'Nie znaleziono kanału' });
-      return;
-    }
+    const channel = await getChannel(interaction);
+    if (!channel) return;
 
     await interaction.editReply({
       content: `Przyzywam ${users.map((u) => `<@${u!.id}>`).join(', ')} <:pathetic:776129039688663061>`,

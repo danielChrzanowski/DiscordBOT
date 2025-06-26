@@ -1,5 +1,5 @@
 import { Client, ChatInputCommandInteraction, SlashCommandBuilder, EmbedBuilder } from 'discord.js';
-import { handleError } from '../addons/utils.js';
+import { getChannel, handleError } from '../addons/utils.js';
 
 const imaginaryFoxId = '<@337220705252802571>';
 
@@ -19,8 +19,11 @@ export default {
         .then((response) => response.json())
         .then((data: any) => (foxImageUrl = data.image));
 
+      const channel = await getChannel(interaction);
+      if (!channel) return;
+
       const embed = new EmbedBuilder().setImage(foxImageUrl).setColor('#e67e22');
-      await interaction.editReply({
+      await channel.send({
         content: `Summon ${imaginaryFoxId} <:catNooo:777774153402679308>`,
         embeds: [embed],
       });

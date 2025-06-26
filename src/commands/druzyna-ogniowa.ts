@@ -1,7 +1,7 @@
 import { readdir } from 'fs/promises';
 import path from 'path';
 import { ChatInputCommandInteraction, Client, SlashCommandBuilder } from 'discord.js';
-import { getRandom, handleError } from '../addons/utils.js';
+import { getChannel, getRandom, handleError } from '../addons/utils.js';
 
 const roleId = '1348065128117178368';
 const imagesFolderPath = './src/assets/druzyna-ogniowa/';
@@ -26,8 +26,11 @@ export default {
         return;
       }
 
+      const channel = await getChannel(interaction);
+      if (!channel) return;
+
       const randomImage = images[getRandom(0, images.length - 1)];
-      await interaction.editReply({
+      await channel.send({
         content: `<@&${roleId}> Gramy w grę REEEEEE <:catNooo:777774153402679308>`,
         files: [{ attachment: path.join(imagesFolderPath, randomImage) }],
         allowedMentions: {
