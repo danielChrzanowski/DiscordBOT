@@ -37,6 +37,9 @@ export default {
           roles: [roleId],
         },
       });
+      await interaction.editReply({
+        content: `Drużyna Ogniowa przyzwana <:catJuice:790433770092101672>`,
+      });
     } catch (error) {
       handleError(client, interaction, error, name, 'Siem obrazki popsuły :(');
     }

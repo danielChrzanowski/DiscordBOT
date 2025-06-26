@@ -27,6 +27,9 @@ export default {
         content: `Summon ${imaginaryFoxId} <:catNooo:777774153402679308>`,
         embeds: [embed],
       });
+      await interaction.editReply({
+        content: `Fox przyzwany <:catJuice:790433770092101672>`,
+      });
     } catch (error) {
       handleError(client, interaction, error, name, 'Nie ma foxika, bo API nie działa :(');
     }
