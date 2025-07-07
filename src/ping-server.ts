@@ -21,11 +21,11 @@ export function startPingServer() {
     try {
       await fetch('https://dzieci-neo-gzr5.onrender.com');
       console.log(`Ping: ${pingId++}`);
-      if (pingId >= 1000) {
+      if (pingId >= 10) {
         pingId = 1;
       }
     } catch (error) {
       console.error('Error pinging server:', error);
     }
-  }, 30_000);
+  }, 20_000);
 }
