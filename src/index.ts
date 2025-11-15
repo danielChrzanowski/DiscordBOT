@@ -1,9 +1,9 @@
 import { Client, Collection, GatewayIntentBits } from 'discord.js';
 import dotenv from 'dotenv';
 import initBotStatuses from './addons/bot-statuses.js';
+import { initServerPingInterval } from './addons/server-ping-interval.js';
 import commandHandler from './handlers/command-handler.js';
 import interactionHandler from './handlers/interaction-handler.js';
-import { startPingServer } from './ping-server.js';
 
 dotenv.config();
 
@@ -25,7 +25,7 @@ const client = new Client({
 client.commands = new Collection();
 
 await commandHandler(client);
-startPingServer();
+initServerPingInterval();
 
 client.once('clientReady', () => {
   initBotStatuses(client);
