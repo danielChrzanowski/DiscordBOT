@@ -1,28 +1,38 @@
-import { ActivityType, Client, TextChannel } from 'discord.js';
+import { ActivityOptions, ActivityType, Client, TextChannel } from 'discord.js';
 import { getRandom } from './utils.js';
 
-type BotStatus = {
-  activity: string;
-  type: ActivityType;
-};
-
-const botStatuses: BotStatus[] = [
-  { activity: 'nagie kwiatki', type: ActivityType.Watching },
-  { activity: 'Arcane S2 E9', type: ActivityType.Watching },
-  { activity: 'stópki Flory', type: ActivityType.Watching },
-  { activity: 'zdjęcia piesków', type: ActivityType.Watching },
-  { activity: 'TOP 1 DPS', type: ActivityType.Competing },
-  { activity: 'Blade & Soul', type: ActivityType.Playing },
-  { activity: 'jak trawa rośnie', type: ActivityType.Listening },
-  { activity: 'speedrun zmywania naczyń', type: ActivityType.Streaming },
-  { activity: 'koty w cosplayu', type: ActivityType.Watching },
-  { activity: 'szant piratów', type: ActivityType.Listening },
-  { activity: 'kurs łapania Pokemonów', type: ActivityType.Playing },
-  { activity: 'memy o ziemniakach', type: ActivityType.Watching },
-  { activity: 'jak pęka popcorn', type: ActivityType.Watching },
-  { activity: 'walki na poduszki', type: ActivityType.Competing },
-  { activity: 'wędkowanie w kałuży', type: ActivityType.Playing },
-  { activity: 'jak schnie farba', type: ActivityType.Listening },
+const botActivities: ActivityOptions[] = [
+  { name: 'Elden Ring', type: ActivityType.Playing },
+  { name: 'Baldurs Gate 3', type: ActivityType.Playing },
+  { name: 'Cyberpunk 2077', type: ActivityType.Playing },
+  { name: 'Minecraft', type: ActivityType.Playing },
+  { name: 'Valorant', type: ActivityType.Playing },
+  { name: 'League of Legends', type: ActivityType.Playing },
+  { name: 'Starfield', type: ActivityType.Playing },
+  { name: 'Palworld', type: ActivityType.Playing },
+  { name: 'Helldivers 2', type: ActivityType.Playing },
+  { name: 'Fortnite', type: ActivityType.Playing },
+  { name: 'Dark Souls 3', type: ActivityType.Playing },
+  { name: 'Hollow Knight', type: ActivityType.Playing },
+  { name: 'Stardew Valley', type: ActivityType.Playing },
+  { name: 'Terraria', type: ActivityType.Playing },
+  { name: 'Factorio', type: ActivityType.Playing },
+  { name: 'The Witcher 3', type: ActivityType.Playing },
+  { name: 'Red Dead 2', type: ActivityType.Playing },
+  { name: 'God of War', type: ActivityType.Playing },
+  { name: 'Dragon Age Inquisition', type: ActivityType.Playing },
+  { name: 'Persona 5', type: ActivityType.Playing },
+  { name: 'Zelda Breath of the Wild', type: ActivityType.Playing },
+  { name: 'Portal 2', type: ActivityType.Playing },
+  { name: 'Half Life 2', type: ActivityType.Playing },
+  { name: 'Doom Eternal', type: ActivityType.Playing },
+  { name: 'Hades', type: ActivityType.Playing },
+  { name: 'Rust', type: ActivityType.Playing },
+  { name: 'Pubg', type: ActivityType.Playing },
+  { name: 'Apex Legends', type: ActivityType.Playing },
+  { name: 'Slay the Spire', type: ActivityType.Playing },
+  { name: 'Sekiro Shadows Die Twice', type: ActivityType.Playing },
+  { name: 'Dying Light 2', type: ActivityType.Playing },
 ];
 
 const updateTimeHours = 3;
@@ -42,16 +52,16 @@ const initBotStatuses = (client: Client): void => {
 
   function resetRandomStatus() {
     do {
-      randomStatus = getRandom(0, botStatuses.length - 1);
+      randomStatus = getRandom(0, botActivities.length - 1);
     } while (randomStatus === previousStatus);
     previousStatus = randomStatus;
   }
 
   async function setBotUsernameAndActivity() {
-    const { activity, type } = botStatuses[randomStatus];
+    const { name, type } = botActivities[randomStatus];
 
     try {
-      client.user?.setActivity(activity, { type });
+      client.user?.setActivity(name, { type });
     } catch (error) {
       console.log(error);
       try {

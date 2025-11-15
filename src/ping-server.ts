@@ -7,11 +7,6 @@ export function startPingServer() {
   const server = express();
   let pingId = 1;
 
-  server.use((_req, res) => {
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify({ pingId }));
-  });
-
   const PORT = process.env.PORT || 3000;
   server.listen(PORT, () => {
     console.log(`Ping server is listening on: http://localhost:${PORT}`);

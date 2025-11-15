@@ -27,9 +27,9 @@ client.commands = new Collection();
 await commandHandler(client);
 startPingServer();
 
-client.on('ready', () => {
+client.once('clientReady', () => {
   initBotStatuses(client);
   console.log('Dzieci Neo is online!');
 });
-client.on('interactionCreate', interactionHandler);
+client.once('interactionCreate', interactionHandler);
 client.login(process.env.DISCORD_TOKEN);
