@@ -29,9 +29,9 @@ await commandHandler(client);
 initExpressServer();
 initServerPingInterval();
 
-client.once('clientReady', () => {
+client.on('clientReady', () => {
   initBotActivitiesInterval(client);
   console.log('Dzieci Neo is online!');
 });
-client.once('interactionCreate', interactionHandler);
+client.on('interactionCreate', interactionHandler);
 client.login(process.env.DISCORD_TOKEN);
