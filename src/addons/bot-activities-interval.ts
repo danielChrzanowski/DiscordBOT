@@ -37,31 +37,23 @@ const botActivities: ActivityOptions[] = [
 
 const updateTimeHours = 3;
 
-const initBotStatuses = (client: Client): void => {
-  let randomStatus: number;
-  let previousStatus: number;
+const initBotActivitiesInterval = (client: Client): void => {
+  let currentActivityIndex: number;
 
-  setInterval(() => {
-    updateBotStatus();
-  }, 3600000 * updateTimeHours);
-
-  function updateBotStatus() {
-    resetRandomStatus();
-    setBotUsernameAndActivity();
-  }
-
-  function resetRandomStatus() {
+  const getRandomActivity = (): ActivityOptions => {
+    let randomActivityIndex: number;
     do {
-      randomStatus = getRandom(0, botActivities.length - 1);
-    } while (randomStatus === previousStatus);
-    previousStatus = randomStatus;
-  }
+      randomActivityIndex = getRandom(0, botActivities.length - 1);
+    } while (randomActivityIndex === currentActivityIndex);
+    currentActivityIndex = randomActivityIndex;
+    return botActivities[currentActivityIndex];
+  };
 
-  async function setBotUsernameAndActivity() {
-    const { name, type } = botActivities[randomStatus];
+  const setBotActivity = async () => {
+    const activity = getRandomActivity();
 
     try {
-      client.user?.setActivity(name, { type });
+      client.user?.setPresence({ activities: [{ name: `Gra w ${activity.name}`, type: activity.type }] });
     } catch (error) {
       console.log(error);
       try {
@@ -73,7 +65,11 @@ const initBotStatuses = (client: Client): void => {
         console.log('Failed to send error to log channel:', e);
       }
     }
-  }
+  };
+
+  setInterval(() => {
+    setBotActivity();
+  }, 3600000 * updateTimeHours);
 };
 
-export default initBotStatuses;
+export default initBotActivitiesInterval;
