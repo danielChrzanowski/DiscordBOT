@@ -1,17 +1,13 @@
-export function initServerPingInterval() {
-  let pingId = 1;
+export const initServerPingInterval = () => {
+  const expressPort = process.env.EXPRESS_PORT || 3000;
+  const serverPingUrl = process.env.SERVER_PING_URL || `http://localhost:${expressPort}/dummy`;
 
-  console.log(`Started ping server interval.`);
+  console.log(`Started pinging: ${serverPingUrl}`);
 
-  setInterval(async () => {
-    try {
-      await fetch('https://dzieci-neo-gzr5.onrender.com');
-      console.log(`Server ping: ${pingId++}`);
-      if (pingId >= 10) {
-        pingId = 1;
-      }
-    } catch (error) {
-      console.error('Error pinging server:', error);
-    }
-  }, 20_000);
-}
+  setInterval(() => {
+    fetch(serverPingUrl)
+      .then((res) => res.json())
+      .then((data) => console.log(`GET /dummy:`, data))
+      .catch((err) => console.error(`Error fetching /dummy:`, err));
+  }, 2_000);
+};

@@ -2,7 +2,6 @@ import { Client, Collection, GatewayIntentBits } from 'discord.js';
 import dotenv from 'dotenv';
 import initBotActivitiesInterval from './addons/bot-activities-interval.js';
 import { initExpressServer } from './addons/express-server.js';
-import { initServerPingInterval } from './addons/server-ping-interval.js';
 import commandHandler from './handlers/command-handler.js';
 import interactionHandler from './handlers/interaction-handler.js';
 
@@ -27,7 +26,6 @@ client.commands = new Collection();
 
 await commandHandler(client);
 initExpressServer();
-initServerPingInterval();
 
 client.on('clientReady', () => {
   initBotActivitiesInterval(client);
