@@ -4,7 +4,7 @@ export const initServerPingInterval = () => {
 
   console.log(`Started ping server interval on: ${serverPingUrl}`);
 
-  const serverStartingTimeoutTime = 60_000;
+  const serverErrorTimeoutTime = 180_000;
   const interval = 2_000;
 
   const ping = (delay: number) => {
@@ -17,10 +17,10 @@ export const initServerPingInterval = () => {
         })
         .catch((err) => {
           console.error(`Error fetching /dummy:`, err);
-          ping(serverStartingTimeoutTime);
+          ping(serverErrorTimeoutTime);
         });
     }, delay);
   };
 
-  ping(serverStartingTimeoutTime);
+  ping(serverErrorTimeoutTime);
 };
