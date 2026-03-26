@@ -9,9 +9,6 @@ dotenv.config();
 const commandsPath = path.join(process.cwd(), 'dist', 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter((file) => file.endsWith('.js'));
 
-console.log('path:', commandsPath);
-console.log('files:', commandFiles);
-
 async function loadCommands() {
   const commands = [];
 
@@ -35,11 +32,7 @@ async function loadCommands() {
 
     const commands = await loadCommands();
 
-    console.log('registered commands:', commands);
-
     const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN!);
-    console.log('rest client created');
-    console.log(process.env.CLIENT_ID!);
     await rest.put(Routes.applicationCommands(process.env.CLIENT_ID!), {
       body: commands,
     });
