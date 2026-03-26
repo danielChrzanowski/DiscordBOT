@@ -1,3 +1,21 @@
+import https from 'https';
+(async function testDiscordConnection() {
+  return new Promise((resolve, reject) => {
+    const req = https.get('https://discord.com/api/v10', (res) => {
+      console.log('Test Discord API statusCode:', res.statusCode);
+      resolve(res.statusCode);
+    });
+    req.on('error', (e) => {
+      console.error('Test Discord API error:', e);
+      reject(e);
+    });
+    req.setTimeout(10000, () => {
+      console.error('Test Discord API timeout');
+      req.destroy();
+      reject(new Error('timeout'));
+    });
+  });
+})();
 import fs from 'fs';
 import path from 'path';
 import { pathToFileURL } from 'url';
@@ -27,6 +45,13 @@ async function loadCommands() {
 }
 
 (async () => {
+  // Test połączenia HTTPS do Discord API
+  try {
+    await testDiscordConnection();
+  } catch (e) {
+    console.error('Nie można połączyć się z Discord API (test HTTPS). Przerywam.');
+    process.exit(1);
+  }
   try {
     console.log('Started refreshing application (/) commands.');
 
