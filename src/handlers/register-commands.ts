@@ -35,10 +35,11 @@ async function loadCommands() {
 
     const commands = await loadCommands();
 
-    console.log('registered commands');
+    console.log('registered commands:', commands);
 
     const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN!);
     console.log('rest client created');
+    console.log(process.env.CLIENT_ID!);
     await rest.put(Routes.applicationCommands(process.env.CLIENT_ID!), {
       body: commands,
     });
