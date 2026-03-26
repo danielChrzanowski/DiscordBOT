@@ -33,11 +33,25 @@ async function loadCommands() {
     const commands = await loadCommands();
 
     const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN!);
-    await rest.put(Routes.applicationCommands(process.env.CLIENT_ID!), {
-      body: commands,
-    });
-
-    console.log('Successfully reloaded application (/) commands.');
+    console.log('Przed wysłaniem rest.put, liczba komend:', commands.length);
+    // Dodaj timeout do requestu
+    const controller = new AbortController();
+    const timeout = setTimeout(() => {
+      controller.abort();
+      console.error('Timeout: request do Discord API przekroczył 15 sekund.');
+    }, 15000);
+    try {
+      const response = await rest.put(Routes.applicationCommands(process.env.CLIENT_ID!), {
+        body: commands,
+        signal: controller.signal,
+      });
+      clearTimeout(timeout);
+      console.log('Odpowiedź Discord API:', response);
+      console.log('Successfully reloaded application (/) commands.');
+    } catch (err) {
+      clearTimeout(timeout);
+      console.error('Błąd podczas wysyłania komend do Discord API:', err instanceof Error ? err.stack : err);
+    }
   } catch (error) {
     console.error(error);
   }
