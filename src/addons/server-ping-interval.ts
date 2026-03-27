@@ -5,7 +5,7 @@ export const initServerPingInterval = () => {
   console.log(`Started ping server interval on: ${serverPingUrl}`);
 
   const serverErrorTimeoutTime = 180_000;
-  const interval = 2_000;
+  const interval = process.env.SERVER_PING_INTERVAL ? parseInt(process.env.SERVER_PING_INTERVAL) : 10_000;
 
   const ping = (delay: number) => {
     setTimeout(() => {
