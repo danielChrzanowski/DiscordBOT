@@ -30,7 +30,14 @@ export default [
       ],
       'import/no-duplicates': 'error',
       'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
+        },
+      ],
       'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0 }],
       'prettier/prettier': 'error',
     },

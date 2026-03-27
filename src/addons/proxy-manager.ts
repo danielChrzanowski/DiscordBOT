@@ -1,14 +1,9 @@
 import { ProxyAgent } from 'undici';
 
-const PROXY_LIST = [
-  '31.59.20.176:6754',
-  '45.38.107.97:6014',
-  '198.105.121.200:6462',
-  '31.58.9.4:6077',
-];
+const PROXY_LIST = ['31.59.20.176:6754', '45.38.107.97:6014', '198.105.121.200:6462', '31.58.9.4:6077'];
 
-const PROXY_USER = process.env.PROXY_USER || 'frnaciha';
-const PROXY_PASS = process.env.PROXY_PASS || 'pr8jbe71pb4q';
+const PROXY_USER = process.env.PROXY_USER || 'undefined_user';
+const PROXY_PASS = process.env.PROXY_PASS || 'undefined_password';
 
 class ProxyManager {
   private proxies: string[];

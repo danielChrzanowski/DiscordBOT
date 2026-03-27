@@ -33,7 +33,6 @@ async function loadCommands() {
 
     const commands = await loadCommands();
 
-    // Use proxy manager to try registering commands through available proxies.
     await proxyManager.runWithRetry(async (agent) => {
       const rest = new REST({ version: '10', agent }).setToken(process.env.DISCORD_TOKEN!);
       await rest.put(Routes.applicationCommands(process.env.CLIENT_ID!), {
