@@ -3,6 +3,7 @@ import path from 'path';
 import { pathToFileURL } from 'url';
 import { REST, Routes } from 'discord.js';
 import dotenv from 'dotenv';
+import proxyManager from '../addons/proxy-manager.js';
 
 dotenv.config();
 
@@ -32,9 +33,12 @@ async function loadCommands() {
 
     const commands = await loadCommands();
 
-    const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN!);
-    await rest.put(Routes.applicationCommands(process.env.CLIENT_ID!), {
-      body: commands,
+    // Use proxy manager to try registering commands through available proxies.
+    await proxyManager.runWithRetry(async (agent) => {
+      const rest = new REST({ version: '10', agent }).setToken(process.env.DISCORD_TOKEN!);
+      await rest.put(Routes.applicationCommands(process.env.CLIENT_ID!), {
+        body: commands,
+      });
     });
 
     console.log('Successfully reloaded application (/) commands.');
