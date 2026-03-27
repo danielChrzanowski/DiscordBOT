@@ -4,7 +4,6 @@ export const initServerPingInterval = () => {
 
   console.log(`Started ping server interval on: ${serverPingUrl}`);
 
-  const serverErrorTimeoutTime = 180_000;
   const interval = process.env.SERVER_PING_INTERVAL ? parseInt(process.env.SERVER_PING_INTERVAL) : 10_000;
   const fetchTimeout = process.env.SERVER_PING_FETCH_TIMEOUT ? parseInt(process.env.SERVER_PING_FETCH_TIMEOUT) : 15_000;
   let consecutiveFailures = 0;
@@ -28,7 +27,9 @@ export const initServerPingInterval = () => {
           const text = await res.text().catch(() => '');
           console.warn(`GET /dummy returned ${res.status}:`, text);
           consecutiveFailures++;
-          ping(getBackoffDelay(serverErrorTimeoutTime));
+          const delayMs = getBackoffDelay(interval);
+          console.warn(`Scheduling backoff: ${delayMs}ms (failures=${consecutiveFailures})`);
+          ping(delayMs);
           return;
         }
 
@@ -49,10 +50,12 @@ export const initServerPingInterval = () => {
           console.error('Error fetching /dummy:', err);
         }
         consecutiveFailures++;
-        ping(getBackoffDelay(serverErrorTimeoutTime));
+        const delayMs = getBackoffDelay(interval);
+        console.warn(`Scheduling backoff: ${delayMs}ms (failures=${consecutiveFailures})`);
+        ping(delayMs);
       }
     }, delay);
   };
 
-  ping(serverErrorTimeoutTime);
+  ping(interval);
 };
