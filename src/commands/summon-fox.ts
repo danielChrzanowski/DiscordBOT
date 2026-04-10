@@ -12,8 +12,8 @@ export default {
   description,
   slashCommandBuilder,
   async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
-    await interaction.deferReply();
     try {
+      await interaction.deferReply();
       let foxImageUrl: string = '';
       await fetch('https://randomfox.ca/floof/')
         .then((response) => response.json())

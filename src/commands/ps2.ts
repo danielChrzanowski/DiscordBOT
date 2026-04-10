@@ -15,10 +15,10 @@ export default {
   description,
   slashCommandBuilder,
   async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
-    await interaction.deferReply();
     const nick = interaction.options.getString('nick');
 
     try {
+      await interaction.deferReply();
       if (nick) {
         await fetch('https://census.daybreakgames.com/get/ps2:v2/character/?name.first_lower=' + nick.toLowerCase())
           .then((response: any) => response.json())

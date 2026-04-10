@@ -14,9 +14,10 @@ export default {
   description,
   slashCommandBuilder,
   async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
-    await interaction.deferReply();
-    await interaction.editReply({
-      content: `KOMENDY:
+    try {
+      await interaction.deferReply();
+      await interaction.editReply({
+        content: `KOMENDY:
       -cat -> losowy koteł
       -clear <ile> -> kasowanie wiadomości (max: ${MAX_MESSAGES_TO_DELETE_COUNT} wiadomości, 14 dni wstecz)
       -doge-counter [użytkownik] -> licznik piesełów (opcjonalnie można podać użytkownika do sprawdzenia)
@@ -29,6 +30,14 @@ export default {
       -summon <użytkownicy> -> przyzywa użytkowników (max ${MAX_USERS_TO_SUMMON_COUNT})
       -sleep <użytkownicy> -> kick z głosowego (max ${MAX_USERS_TO_SLEEP_COUNT} użytkowników)
       -wipe-time -> woła do BnS REEE`,
-    });
+      });
+    } catch (error) {
+      console.error('Error in help command:', error);
+      try {
+        await interaction.reply({ content: 'Wystąpił błąd podczas wyświetlania komend', flags: 64 });
+      } catch (e) {
+        console.error('Failed to send error reply in help command:', e);
+      }
+    }
   },
 };

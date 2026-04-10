@@ -1,3 +1,4 @@
+import { MessageFlags } from 'discord-api-types/v10';
 import { ChatInputCommandInteraction, Client, TextChannel, User } from 'discord.js';
 
 const sendMessageToBotLogsChannel = async (client: Client, message: string): Promise<void> => {
@@ -49,7 +50,15 @@ const handleError = async (
 const getChannel = async (interaction: ChatInputCommandInteraction): Promise<TextChannel | null> => {
   const channel = interaction.channel as TextChannel | null;
   if (!channel) {
-    await interaction.editReply({ content: 'Nie znaleziono kanału' });
+    try {
+      if (interaction.deferred || interaction.replied) {
+        await interaction.editReply({ content: 'Nie znaleziono kanału' });
+      } else {
+        await interaction.reply({ content: 'Nie znaleziono kanału', flags: Number(MessageFlags.Ephemeral) });
+      }
+    } catch (err) {
+      console.error('Failed to notify user about missing channel:', err);
+    }
     return null;
   }
   return channel;

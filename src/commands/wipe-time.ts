@@ -15,9 +15,9 @@ export default {
   description,
   slashCommandBuilder,
   async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
-    await interaction.deferReply();
-
     try {
+      await interaction.deferReply();
+
       const files = await readdir(imagesFolderPath);
       const images = files.filter((f) => /\.(jpe?g|png)$/i.test(f));
 

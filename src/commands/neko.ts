@@ -19,21 +19,21 @@ export default {
   description,
   slashCommandBuilder,
   async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
-    await interaction.deferReply();
-
-    const param = interaction.options.getString('parameter', true);
-
-    if (!nekoParameters.includes(param)) {
-      await interaction.editReply('Podano zły parametr :(');
-      return;
-    }
-
-    if (NSFWParameters.includes(param) && interaction.channel && !(interaction.channel as TextChannel).nsfw) {
-      await interaction.editReply('Możesz użyć tego argumentu tylko na kanale NSFW');
-      return;
-    }
-
     try {
+      await interaction.deferReply();
+
+      const param = interaction.options.getString('parameter', true);
+
+      if (!nekoParameters.includes(param)) {
+        await interaction.editReply('Podano zły parametr :(');
+        return;
+      }
+
+      if (NSFWParameters.includes(param) && interaction.channel && !(interaction.channel as TextChannel).nsfw) {
+        await interaction.editReply('Możesz użyć tego argumentu tylko na kanale NSFW');
+        return;
+      }
+
       const urlSearchParams = new URLSearchParams();
       urlSearchParams.append('rating', param);
       const response = await fetch(`https://api.nekosapi.com/v4/images?${urlSearchParams}`).then(
@@ -47,7 +47,11 @@ export default {
 
       const randomImageIndex = getRandom(0, response.items.length - 1);
       const message: Message = await interaction.editReply(response.items[randomImageIndex].url);
-      message.react(getRandomNekoReaction());
+      try {
+        await message.react(getRandomNekoReaction());
+      } catch (err) {
+        console.error('Failed to react to message:', err);
+      }
     } catch (error) {
       await handleError(client, interaction, error, name, 'Nie ma neko, bo API nie działa :(');
     }

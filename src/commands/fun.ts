@@ -10,8 +10,8 @@ export default {
   description,
   slashCommandBuilder,
   async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
-    await interaction.deferReply();
     try {
+      await interaction.deferReply();
       await interaction.editReply({
         content: `Fun <:uganda:783095652212670514>`,
         files: ['./src/assets/destiny/fun.png'],

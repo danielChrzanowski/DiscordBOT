@@ -23,63 +23,72 @@ export default {
   description,
   slashCommandBuilder,
   async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
-    await interaction.deferReply();
+    try {
+      await interaction.deferReply();
 
-    if (!interaction.memberPermissions?.has('MoveMembers')) {
-      await interaction.editReply({ content: 'Nie masz wystarczających uprawnień' });
-      return;
-    }
+      if (!interaction.memberPermissions?.has('MoveMembers')) {
+        await interaction.editReply({ content: 'Nie masz wystarczających uprawnień' });
+        return;
+      }
 
-    const userOptions = getUserOptions(interaction, MAX_USERS_TO_SLEEP_COUNT);
-    if (userOptions.length === 0) {
-      await interaction.editReply({ content: 'Nie podałeś żadnych użytkowników do uspania' });
-      return;
-    }
+      const userOptions = getUserOptions(interaction, MAX_USERS_TO_SLEEP_COUNT);
+      if (userOptions.length === 0) {
+        await interaction.editReply({ content: 'Nie podałeś żadnych użytkowników do uspania' });
+        return;
+      }
 
-    if (userOptions.some((user) => user.id === '823862166850502657')) {
-      await interaction.editReply({ content: 'Jak śmiesz próbować mnie kickować <:pathetic:776129039688663061>' });
-      return;
-    }
+      if (userOptions.some((user) => user.id === '823862166850502657')) {
+        await interaction.editReply({ content: 'Jak śmiesz próbować mnie kickować <:pathetic:776129039688663061>' });
+        return;
+      }
 
-    const guild = interaction.guild;
-    if (!guild) {
-      await interaction.editReply({ content: 'Nie można znaleźć gildii' });
-      return;
-    }
+      const guild = interaction.guild;
+      if (!guild) {
+        await interaction.editReply({ content: 'Nie można znaleźć gildii' });
+        return;
+      }
 
-    const channel = interaction.channel as TextChannel | null;
-    if (!channel) {
-      await interaction.editReply({ content: 'Nie znaleziono kanału' });
-      return;
-    }
+      const channel = interaction.channel as TextChannel | null;
+      if (!channel) {
+        await interaction.editReply({ content: 'Nie znaleziono kanału' });
+        return;
+      }
 
-    for (const user of userOptions) {
-      try {
-        const memberTarget = await guild.members.fetch(user.id);
-        const mention = `<@${user.id}>`;
+      for (const user of userOptions) {
+        try {
+          const memberTarget = await guild.members.fetch(user.id);
+          const mention = `<@${user.id}>`;
 
-        if (memberTarget.voice && memberTarget.voice.channelId) {
-          let response = getRandomSleepResponse(mention);
+          if (memberTarget.voice && memberTarget.voice.channelId) {
+            let response = getRandomSleepResponse(mention);
 
-          await memberTarget.voice.setChannel(null);
+            await memberTarget.voice.setChannel(null);
+            await channel.send({
+              content: response,
+              allowedMentions: { users: [user!.id] },
+            });
+          } else {
+            await channel.send({
+              content: `Chill mon <:catGun:790433695998935090>. ${mention} już śpi :sleeping:`,
+              allowedMentions: { users: [user!.id] },
+            });
+          }
+        } catch {
           await channel.send({
-            content: response,
-            allowedMentions: { users: [user!.id] },
-          });
-        } else {
-          await channel.send({
-            content: `Chill mon <:catGun:790433695998935090>. ${mention} już śpi :sleeping:`,
+            content: `Nie można znaleźć użytkownika ${user.tag}`,
             allowedMentions: { users: [user!.id] },
           });
         }
-      } catch {
-        await channel.send({
-          content: `Nie można znaleźć użytkownika ${user.tag}`,
-          allowedMentions: { users: [user!.id] },
-        });
+      }
+
+      await interaction.editReply({ content: 'Wszyscy uspani :sleeping:' });
+    } catch (error) {
+      console.error('Error in sleep command:', error);
+      try {
+        await interaction.reply({ content: 'Wystąpił błąd podczas usypiania użytkowników', flags: 64 });
+      } catch (e) {
+        console.error('Failed to send error reply in sleep command:', e);
       }
     }
-
-    await interaction.editReply({ content: 'Wszyscy uspani :sleeping:' });
   },
 };

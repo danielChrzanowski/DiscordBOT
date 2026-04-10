@@ -11,9 +11,9 @@ export default {
   description,
   slashCommandBuilder,
   async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
-    await interaction.deferReply();
-
     try {
+      await interaction.deferReply();
+
       const apiData = (await fetch('https://api.thecatapi.com/v1/images/search?format=json', {
         headers: { 'x-api-key': process.env.THE_CAT_API_KEY! },
       }).then((res) => res.json())) as [{ url: string }];
@@ -22,7 +22,11 @@ export default {
         content: apiData[0].url,
       });
 
-      message.react(getRandomCuteReaction());
+      try {
+        await message.react(getRandomCuteReaction());
+      } catch (err) {
+        console.error('Failed to react to message:', err);
+      }
     } catch (error) {
       await handleError(client, interaction, error, name, 'Nie ma koteła, bo API nie działa :(');
     }

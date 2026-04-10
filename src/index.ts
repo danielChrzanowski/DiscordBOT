@@ -1,5 +1,5 @@
+import 'dotenv/config';
 import { Client, Collection, GatewayIntentBits } from 'discord.js';
-import dotenv from 'dotenv';
 import initBotActivitiesInterval from './addons/bot-activities-interval.js';
 import { initExpressServer } from './addons/express-server.js';
 import attachProxyErrorHandlers from './addons/proxy-error-handler.js';
@@ -7,7 +7,7 @@ import proxyManager from './addons/proxy-manager.js';
 import commandHandler from './handlers/command-handler.js';
 import interactionHandler from './handlers/interaction-handler.js';
 
-dotenv.config();
+// dotenv is loaded via import 'dotenv/config' above
 
 interface CustomClient extends Client {
   commands: Collection<string, any>;
@@ -34,7 +34,7 @@ initExpressServer();
 
 client.on('clientReady', () => {
   initBotActivitiesInterval(client);
-  console.log('Dzieci Neo is online!');
+  console.log(`PID: ${process.pid} - Dzieci Neo is online!`);
 });
 client.on('interactionCreate', interactionHandler);
 

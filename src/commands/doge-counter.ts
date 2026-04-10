@@ -17,10 +17,10 @@ export default {
   description,
   slashCommandBuilder,
   async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
-    await interaction.deferReply();
-    const passedUser = interaction.options.getUser('user');
-
     try {
+      await interaction.deferReply();
+      const passedUser = interaction.options.getUser('user');
+
       let reply: string;
       const userToCheck = passedUser ? passedUser : interaction.user;
       const dogeCount = await getDogeCounter(userToCheck.id);
@@ -32,7 +32,11 @@ export default {
       }
 
       const message: Message = await interaction.editReply({ content: reply });
-      message.react(getRandomCuteReaction());
+      try {
+        await message.react(getRandomCuteReaction());
+      } catch (err) {
+        console.error('Failed to react to message:', err);
+      }
     } catch (error) {
       await handleError(client, interaction, error, name, 'Podano złe parametry albo baza danych płonie :(');
     }

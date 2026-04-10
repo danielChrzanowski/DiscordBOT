@@ -23,28 +23,37 @@ export default {
   description,
   slashCommandBuilder,
   async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
-    await interaction.deferReply();
+    try {
+      await interaction.deferReply();
 
-    const users = getUserOptions(interaction, MAX_USERS_TO_SUMMON_COUNT);
-    if (users.length === 0) {
-      await interaction.followUp({ content: 'Nie podano użytkowników' });
-      return;
-    }
+      const users = getUserOptions(interaction, MAX_USERS_TO_SUMMON_COUNT);
+      if (users.length === 0) {
+        await interaction.followUp({ content: 'Nie podano użytkowników' });
+        return;
+      }
 
-    const channel = await getChannel(interaction);
-    if (!channel) return;
+      const channel = await getChannel(interaction);
+      if (!channel) return;
 
-    await interaction.editReply({
-      content: `Przyzywam ${users.map((u) => `<@${u!.id}>`).join(', ')} <:pathetic:776129039688663061>`,
-    });
+      await interaction.editReply({
+        content: `Przyzywam ${users.map((u) => `<@${u!.id}>`).join(', ')} <:pathetic:776129039688663061>`,
+      });
 
-    for (const user of users) {
-      for (let i = 0; i < summonCount; i++) {
-        await channel.send({
-          content: `Summon <@${user!.id}> ${getRandomCuteReaction()}`,
-          allowedMentions: { users: [user!.id] },
-        });
-        await new Promise((r) => setTimeout(r, 1000));
+      for (const user of users) {
+        for (let i = 0; i < summonCount; i++) {
+          await channel.send({
+            content: `Summon <@${user!.id}> ${getRandomCuteReaction()}`,
+            allowedMentions: { users: [user!.id] },
+          });
+          await new Promise((r) => setTimeout(r, 1000));
+        }
+      }
+    } catch (error) {
+      console.error('Error in summon command:', error);
+      try {
+        await interaction.reply({ content: 'Wystąpił błąd podczas przyzywania użytkowników', flags: 64 });
+      } catch (e) {
+        console.error('Failed to send error reply in summon command:', e);
       }
     }
   },

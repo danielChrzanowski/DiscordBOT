@@ -12,13 +12,21 @@ export default {
   description,
   slashCommandBuilder,
   async executeSlash(client: Client, interaction: ChatInputCommandInteraction) {
-    await interaction.deferReply();
     try {
+      await interaction.deferReply();
       const { url } = await fetch('https://random.dog/woof.json').then((response: any) => response.json());
       const message: Message = await interaction.editReply({ content: url });
-      message.react(getRandomCuteReaction());
+      try {
+        await message.react(getRandomCuteReaction());
+      } catch (err) {
+        console.error('Failed to react to message:', err);
+      }
 
-      incrementDogeCounter(interaction.user.id, interaction.user.username);
+      try {
+        await incrementDogeCounter(interaction.user.id, interaction.user.username);
+      } catch (err) {
+        console.error('Failed to increment doge counter:', err);
+      }
     } catch (error) {
       await handleError(client, interaction, error, name, 'Nie ma pieseła, bo API nie działa :(');
     }
