@@ -41,7 +41,7 @@ export default {
         content: `Drużyna wipe'a przyzwana <:catJuice:790433770092101672>`,
       });
     } catch (error) {
-      handleError(client, interaction, error, name, 'Siem obrazki popsuły :(');
+      await handleError(client, interaction, error, name, 'Siem obrazki popsuły :(');
     }
   },
 };

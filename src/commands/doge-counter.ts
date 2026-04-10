@@ -34,7 +34,7 @@ export default {
       const message: Message = await interaction.editReply({ content: reply });
       message.react(getRandomCuteReaction());
     } catch (error) {
-      handleError(client, interaction, error, name, 'Podano złe parametry albo baza danych płonie :(');
+      await handleError(client, interaction, error, name, 'Podano złe parametry albo baza danych płonie :(');
     }
   },
 };

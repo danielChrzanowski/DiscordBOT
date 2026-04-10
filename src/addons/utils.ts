@@ -1,9 +1,15 @@
 import { ChatInputCommandInteraction, Client, TextChannel, User } from 'discord.js';
 
-const sendMessageToBotLogsChannel = async (client: Client, message: string) => {
-  const logChannel = await client.channels.fetch(process.env.LOG_CHANNEL_ID!);
-  if (logChannel && (logChannel as any).send) {
-    (logChannel as any).send(message);
+const sendMessageToBotLogsChannel = async (client: Client, message: string): Promise<void> => {
+  try {
+    const logChannelId = process.env.LOG_CHANNEL_ID;
+    if (!logChannelId) return;
+    const logChannel = await client.channels.fetch(logChannelId);
+    if (logChannel && (logChannel as any).send) {
+      await (logChannel as any).send(message);
+    }
+  } catch (err) {
+    console.error('Failed to send message to bot logs channel:', err);
   }
 };
 
@@ -19,20 +25,24 @@ const getUserOptions = (interaction: ChatInputCommandInteraction, count: number)
     .filter((u): u is User => u !== null);
 };
 
-const handleError = (
+const handleError = async (
   client: Client,
   interaction: ChatInputCommandInteraction,
   error: unknown,
   commandName: string,
   replyForUser: string,
-): void => {
-  console.error(error);
-  sendMessageToBotLogsChannel(client, `Komenda '${commandName}' nie działa. Error: ${error}`);
+): Promise<void> => {
+  try {
+    console.error(error);
+    await sendMessageToBotLogsChannel(client, `Komenda '${commandName}' nie działa. Error: ${error}`);
 
-  if (interaction.deferred || interaction.replied) {
-    interaction.editReply({ content: replyForUser });
-  } else {
-    interaction.reply({ content: replyForUser });
+    if (interaction.deferred || interaction.replied) {
+      await interaction.editReply({ content: replyForUser });
+    } else {
+      await interaction.reply({ content: replyForUser });
+    }
+  } catch (err) {
+    console.error('Error while handling command error:', err);
   }
 };
 

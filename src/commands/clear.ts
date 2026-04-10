@@ -41,7 +41,7 @@ export default {
       const messages = await channel.messages.fetch({ limit: amount + 1 });
       await channel.bulkDelete(messages);
     } catch (error) {
-      handleError(client, interaction, error, name, 'Kasowanie nie działa. Siem coś popsuło, abo co :(');
+      await handleError(client, interaction, error, name, 'Kasowanie nie działa. Siem coś popsuło, abo co :(');
     }
   },
 };

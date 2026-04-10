@@ -20,7 +20,7 @@ export default {
 
       incrementDogeCounter(interaction.user.id, interaction.user.username);
     } catch (error) {
-      handleError(client, interaction, error, name, 'Nie ma pieseła, bo API nie działa :(');
+      await handleError(client, interaction, error, name, 'Nie ma pieseła, bo API nie działa :(');
     }
   },
 };

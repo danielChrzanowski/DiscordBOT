@@ -24,7 +24,7 @@ export default {
 
       message.react(getRandomCuteReaction());
     } catch (error) {
-      handleError(client, interaction, error, name, 'Nie ma koteła, bo API nie działa :(');
+      await handleError(client, interaction, error, name, 'Nie ma koteła, bo API nie działa :(');
     }
   },
 };

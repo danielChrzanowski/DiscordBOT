@@ -17,7 +17,7 @@ export default {
         files: ['./src/assets/destiny/fun.png'],
       });
     } catch (error) {
-      handleError(client, interaction, error, name, 'Siem obrazki popsuły :(');
+      await handleError(client, interaction, error, name, 'Siem obrazki popsuły :(');
     }
   },
 };

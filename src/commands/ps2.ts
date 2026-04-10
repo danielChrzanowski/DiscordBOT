@@ -24,16 +24,15 @@ export default {
           .then((response: any) => response.json())
           .then((data: any) => {
             if (data.returned == 0) {
-              interaction.editReply({
+              return interaction.editReply({
                 content: `Nie ma gracza o nicku "${nick}"`,
               });
-              return;
             } else {
               const playerName = data.character_list[0].name.first;
               const certs = data.character_list[0].certs.available_points;
               const lastLoginDate = data.character_list[0].times.last_login_date;
               const lastSaveDate = data.character_list[0].times.last_save_date;
-              interaction.editReply({
+              return interaction.editReply({
                 content: `Gracz: "${playerName}"\nCerty: ${certs}\nOstatnie logowanie: ${lastLoginDate}\nOstatni save: ${lastSaveDate}`,
               });
             }
@@ -81,7 +80,7 @@ export default {
         await interaction.editReply({ content: chartUrl });
       }
     } catch (error) {
-      handleError(client, interaction, error, name, 'Nie ma wykresu, bo API nie działa  :(');
+      await handleError(client, interaction, error, name, 'Nie ma wykresu, bo API nie działa  :(');
     }
   },
 };

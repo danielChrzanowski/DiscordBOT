@@ -49,7 +49,7 @@ export default {
       const message: Message = await interaction.editReply(response.items[randomImageIndex].url);
       message.react(getRandomNekoReaction());
     } catch (error) {
-      handleError(client, interaction, error, name, 'Nie ma neko, bo API nie działa :(');
+      await handleError(client, interaction, error, name, 'Nie ma neko, bo API nie działa :(');
     }
   },
 };

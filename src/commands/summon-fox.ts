@@ -31,7 +31,7 @@ export default {
         content: `Fox przyzwany <:catJuice:790433770092101672>`,
       });
     } catch (error) {
-      handleError(client, interaction, error, name, 'Nie ma foxika, bo API nie działa :(');
+      await handleError(client, interaction, error, name, 'Nie ma foxika, bo API nie działa :(');
     }
   },
 };
