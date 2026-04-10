@@ -1,4 +1,5 @@
-import { Interaction, ChatInputCommandInteraction, Client, Collection, InteractionResponseFlags } from 'discord.js';
+import { Interaction, ChatInputCommandInteraction, Client, Collection } from 'discord.js';
+import { MessageFlags } from 'discord-api-types/v10';
 
 export default async (interaction: Interaction) => {
   if (!interaction.isChatInputCommand()) return;
@@ -33,12 +34,12 @@ export default async (interaction: Interaction) => {
       if (interaction.replied || interaction.deferred) {
         await interaction.followUp({
           content: 'There was an error running the command',
-          flags: InteractionResponseFlags.Ephemeral,
+          flags: Number(MessageFlags.Ephemeral),
         });
       } else {
         await interaction.reply({
           content: 'There was an error running the command',
-          flags: InteractionResponseFlags.Ephemeral,
+          flags: Number(MessageFlags.Ephemeral),
         });
       }
     } catch (replyErr) {
