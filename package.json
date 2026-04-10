@@ -1,6 +1,6 @@
 {
   "name": "discord-bot",
-  "version": "2.7.2",
+  "version": "2.8.0",
   "description": "Dzieci Neo's server Discord bot",
   "type": "module",
   "main": "dist/index.js",
