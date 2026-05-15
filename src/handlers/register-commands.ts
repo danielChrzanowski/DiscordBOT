@@ -1,11 +1,9 @@
+import 'dotenv/config';
 import fs from 'fs';
 import path from 'path';
 import { pathToFileURL } from 'url';
 import { REST, Routes } from 'discord.js';
-import dotenv from 'dotenv';
 import proxyManager from '../addons/proxy-manager.js';
-
-dotenv.config();
 
 const commandsPath = path.join(process.cwd(), 'dist', 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter((file) => file.endsWith('.js'));

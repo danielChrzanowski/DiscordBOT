@@ -1,7 +1,18 @@
 import { ProxyAgent } from 'undici';
 
 // Default proxy list can be overridden via env PROXY_LIST (comma-separated)
-const DEFAULT_PROXY_LIST = ['31.59.20.176:6754', '45.38.107.97:6014', '198.105.121.200:6462', '31.58.9.4:6077'];
+const DEFAULT_PROXY_LIST = [
+  '142.111.48.253:7030',
+  '23.95.150.145:6114',
+  '45.38.107.97:6014',
+  '38.154.203.95:5863',
+  '198.23.243.226:6361',
+  '84.247.60.125:6095',
+  '104.239.107.47:5699',
+  '23.27.208.120:5830',
+  '23.229.19.94:8689',
+  '2.57.20.2:6983',
+];
 const PROXY_LIST = process.env.PROXY_LIST ? process.env.PROXY_LIST.split(',').map((s) => s.trim()) : DEFAULT_PROXY_LIST;
 
 const PROXY_USER = process.env.PROXY_USER ?? '';
