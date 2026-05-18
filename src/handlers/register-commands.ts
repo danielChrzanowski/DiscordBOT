@@ -31,12 +31,13 @@ async function loadCommands() {
 
     const commands = await loadCommands();
 
-    await proxyManager.runWithRetry(async (agent) => {
+    {
+      const agent = proxyManager.getAgent();
       const rest = new REST({ version: '10', agent }).setToken(process.env.DISCORD_TOKEN!);
       await rest.put(Routes.applicationCommands(process.env.CLIENT_ID!), {
         body: commands,
       });
-    });
+    }
 
     console.log('Successfully reloaded application (/) commands.');
   } catch (error) {
