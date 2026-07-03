@@ -4,6 +4,7 @@ const PROXY_USER = process.env.PROXY_USER ?? '';
 const PROXY_PASS = process.env.PROXY_PASS ?? '';
 const PROXY_HOST = process.env.PROXY_HOST ?? '';
 const PROXY_PORT = process.env.PROXY_PORT ?? '';
+const PROXY_ENABLED = (process.env.PROXY_ENABLED ?? '').trim().toLowerCase() === 'true';
 
 class ProxyManager {
   private proxyUrl?: string;
@@ -11,11 +12,15 @@ class ProxyManager {
   private enabled: boolean;
 
   constructor(user?: string, pass?: string, host?: string, port?: string) {
-    this.enabled = !!(user && pass && host && port);
+    const hasRequiredSettings = !!(user && pass && host && port);
+    this.enabled = PROXY_ENABLED && hasRequiredSettings;
     if (!this.enabled) {
       this.proxyUrl = undefined;
       this.agent = undefined;
-      console.warn('ProxyManager: proxy disabled because PROXY_USER/PROXY_PASS/PROXY_HOST/PROXY_PORT are not set.');
+      const reason = !PROXY_ENABLED
+        ? 'PROXY_ENABLED is not set to true.'
+        : 'PROXY_USER/PROXY_PASS/PROXY_HOST/PROXY_PORT are not set.';
+      console.warn(`ProxyManager: proxy disabled because ${reason}`);
       return;
     }
 
