@@ -10,6 +10,22 @@ const name = 'druzyna-ogniowa';
 const description = 'Calls for Drużyna Ogniowa';
 const slashCommandBuilder = new SlashCommandBuilder().setName(name).setDescription(description);
 
+let currentImageIndex = -1;
+let hasPickedRandomImage = false;
+
+function getNextImage(images: string[]) {
+  if (images.length === 0) return undefined;
+
+  if (!hasPickedRandomImage) {
+    currentImageIndex = getRandom(0, images.length - 1);
+    hasPickedRandomImage = true;
+    return images[currentImageIndex];
+  }
+
+  currentImageIndex = (currentImageIndex + 1) % images.length;
+  return images[currentImageIndex];
+}
+
 export default {
   name,
   description,
@@ -29,7 +45,12 @@ export default {
       const channel = await getChannel(interaction);
       if (!channel) return;
 
-      const randomImage = images[getRandom(0, images.length - 1)];
+      const randomImage = getNextImage(images);
+      if (!randomImage) {
+        await interaction.editReply({ content: 'Brak dostępnych obrazków :(' });
+        return;
+      }
+
       await channel.send({
         content: `<@&${roleId}> Gramy w grę REEEEEE <:catNooo:777774153402679308>`,
         files: [{ attachment: path.join(imagesFolderPath, randomImage) }],
